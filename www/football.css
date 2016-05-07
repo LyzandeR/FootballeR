@@ -1,0 +1,78 @@
+html
+   {
+  position:relative; 
+  min-height: 100%;
+  padding:0;
+  margin:0;
+   }
+
+/*Normalize html and body elements,this style is just good to have*/
+body
+   {
+  margin:auto;
+  padding:0;
+  width:100%;
+   }
+
+.container
+   {
+  margin-bottom:50px;/* Height of footer*/
+  width:1650px;
+   }
+
+/*
+.well
+   {
+  position:fixed;
+  width:400px
+   }
+*/
+ 
+.footer
+   {
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  right: 0px;
+  height:50px;
+  background:#ccc;
+  min-height:50px;
+  min-width:1400px;
+   }
+
+/* apparently there is a bug at Rstudio or Bootstrap3 which causes 'row class div' to have margin and padding which creates a horizontal scrollbar*/
+/* https://github.com/twbs/bootstrap/issues/10711 */
+.row 
+   { 
+   margin: 0; padding: 0 
+   }
+
+.icon
+    {
+    width:100%;
+    height:370px;
+    border-radius:50%;
+    font-size:30px;
+    text-align:center;
+    vertical-align:middle;
+    padding-top:25%;
+    line-height:370px;
+    color:#fff; 
+    background:#f7a35c;
+    }
+
+
+#parent {
+    width: 1170px;
+}
+
+.image {
+    float: left;
+    width: 320px;
+}
+
+.custom_slider {
+    float: right;
+    width: 170px;
+}
+     
