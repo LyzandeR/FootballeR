@@ -33,8 +33,7 @@ shinyServer(function(input, output, session){
 #                       )
 #     
 #     values$country <- input$country
-#     
-#     
+#   
 #   })
 #   
 #   dataInput <- reactive({
@@ -116,7 +115,7 @@ shinyServer(function(input, output, session){
   
   outputOptions(output, 'raw', suspendWhenHidden=FALSE)
   
-  output$league_table <- DT::renderDataTable(DT::datatable({
+  output$league_table <- renderTable({
     
     footy_tab  <- values$data
     
@@ -124,19 +123,74 @@ shinyServer(function(input, output, session){
     
     home_team_stats <- lapply(teams, function(x) {
       
-      footy_tab[HomeTeam==x, list(Team            = x,
-                                 `Games Played`  = .N, 
-                                 Points          = sum(ifelse(FTR == 'W', 1, 0)) * 3 + sum(ifelse(FTR == 'D', 1, 0)),
-                                 `Home Wins`     = sum(ifelse(FTR == 'W', 1, 0)), 
-                                 Draws           = sum(ifelse(FTR == 'D', 1, 0)),
-                                 `Home Losses`   = sum(ifelse(FTR == 'L', 1, 0)),
-                                 `Goals Scored`  = sum(FTHG),
-                                 `Goals Conceded`= sum(FTAG)),
-                by='HomeTeam']
+        footy_tab[HomeTeam==x, list(Team                 = x,
+                                    Played1              = .N, 
+                                    Points1              = sum(ifelse(FTR == 'H', 1L, 0L)) * 3 + sum(ifelse(FTR == 'D', 1L, 0L)),
+                                    `Home Wins`          = sum(ifelse(FTR == 'H', 1L, 0L)), 
+                                    `Home Draws`         = sum(ifelse(FTR == 'D', 1L, 0L)),
+                                    `Home Losses`        = sum(ifelse(FTR == 'A', 1L, 0L)),
+                                    `Home Scored`  = sum(FTHG),
+                                    `Home Conceded`= sum(FTAG)),
+                  by='HomeTeam']
       
     })
     
-  }))  
+    away_team_stats <- lapply(teams, function(x) {
+      
+      footy_tab[AwayTeam==x, list(Team                 = x,
+                                  Played2              = .N, 
+                                  Points2              = sum(ifelse(FTR == 'A', 1L, 0L)) * 3 + sum(ifelse(FTR == 'D', 1L, 0L)),
+                                  `Away Wins`          = sum(ifelse(FTR == 'A', 1L, 0L)), 
+                                  `Away Draws`         = sum(ifelse(FTR == 'D', 1L, 0L)),
+                                  `Away Losses`        = sum(ifelse(FTR == 'H', 1L, 0L)),
+                                  `Away Scored`  = as.integer(sum(FTAG)),
+                                  `Away Conceded`= as.integer(sum(FTHG))),
+                by='AwayTeam']
+    })
+    
+    home_team_stats <- rbindlist(home_team_stats)
+    away_team_stats <- rbindlist(away_team_stats)
+    
+    team_stats <- cbind(home_team_stats, away_team_stats)[, list(Team, 
+                                                                 Played = Played1 + Played2, 
+                                                                 `Home Wins`, `Home Draws`, `Home Losses`, `Home Scored`, `Home Conceded`, 
+                                                                 `Away Wins`, `Away Draws`, `Away Losses`, `Away Scored`, `Away Conceded`,
+                                                                 `Total Wins`    = `Home Wins`     + `Away Wins`,
+                                                                 `Total Draws`   = `Home Draws`    + `Away Draws`,
+                                                                 `Total Losses`  = `Home Losses`   + `Away Losses`,
+                                                                 `Total Scored`  = `Home Scored`   + `Away Scored`,
+                                                                 `Total Conceded`= `Home Conceded` + `Away Conceded`,
+                                                                 `Goal Diff` = `Home Scored` + `Away Scored` - `Home Conceded` - `Away Conceded`, 
+                                                                 Points      = as.integer(Points1 + Points2))][,
+                                                                 total_scored := `Home Scored` + `Away Scored`]
+    setorder(team_stats, -Points, -`Goal Diff`, -total_scored)
+    team_stats[, Pos := as.character(.I)]
+    team_stats[, total_scored := NULL]
+    team_stats <- team_stats[, c('Pos', names(team_stats)[-length(names(team_stats))]), with = FALSE]
+
+    names(team_stats) <- gsub('Home|Away|Total', '', names(team_stats))
+    
+    team_stats
+    
+    
+  }, 
+  include.rownames = FALSE, 
+  add.to.row=list(
+    pos=list(0, 0), 
+    command=c("<TR> <TH colspan=3>  </TH> 
+                    <TH colspan=5 style = 'text-align:center'> Home </TH>
+                    <TH colspan=5 style = 'text-align:center'> Away </TH>
+                    <TH colspan=5 style = 'text-align:center'> Total </TH>
+                    <TH colspan=2> </TH>
+              </TR>" ,
+              paste("<TR>", paste(lapply(c('Pos','Team','Played',
+                                           'Wins','Draws','Losses','For','Against',
+                                           'Wins','Draws','Losses','For','Against',
+                                           'Wins','Draws','Losses','For','Against',
+                                           'Goal Diff','Points'), 
+                                         function(x) paste('<TH>', x, '</TH>')), collapse=''), '</TR>'))
+                  ),
+  include.colnames=FALSE)
   
   output$goals_per_team <- renderHighchart({
     

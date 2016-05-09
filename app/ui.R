@@ -31,6 +31,9 @@ shinyUI(fixedPage(title='FootballeR',
   mainPanel(
     
     tabsetPanel(
+      tabPanel('League Table',
+               fixedRow(tableOutput('league_table')
+      )),
       tabPanel('Goals', 
                fixedRow(
                   column(highchartOutput('goals_per_team' , height='600px'), width=12)),

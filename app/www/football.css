@@ -75,4 +75,27 @@ body
     float: right;
     width: 170px;
 }
-     
+
+table, th, td{
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+table tr:nth-child(odd){
+	background-color: #e6faff;
+}
+
+table tr:nth-child(1){
+	background-color: #ffffff;
+}
+
+table tr:nth-child(2){
+	background-color: #ffffff;
+	border-bottom: 2px solid black;
+}
+
+table tr:hover{
+    background-color: #7cb5ec;
+}
+
+
