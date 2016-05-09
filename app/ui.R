@@ -3,6 +3,7 @@ shinyUI(fixedPage(title='FootballeR',
   br(),
   tags$head(includeCSS('www/football.css')),
   tags$head(tags$script(src="floating_sidebar.js")),
+  tags$head(tags$script(src="table_highlight.js")),
   fixedRow(
     column(width=11, h1("FootballeR")),
     div(style = "right:250px;position:absolute;", column(width=1 , img(src="sport-1019941__180.jpg", height = 80, width = 200)))
