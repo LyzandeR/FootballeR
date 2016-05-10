@@ -125,4 +125,63 @@ td:hover::after {
     z-index: -1;        
 }
 
+.navbar{
+	height: 30px;
+	padding-left: 40px;
+}
 
+.bg {
+    position: relative;
+    overflow: hidden;
+}
+.first_line {
+    padding-top: 200px;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    font-family: serif;
+    font-size: 90px;
+} 
+
+.second_line {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    font-family: serif;
+    font-size: 35px;
+}
+
+.divider{
+	display: block;
+	margin: 0 auto;
+	z-index: 2;
+}
+
+.background{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    z-index: -1;
+}
+
+.flags{
+	display: inline-block;
+    margin-left: auto;
+    margin-right: auto;    
+    height: 30px; 
+    z-index: 2;
+}
+
+#row_images{
+	text-align: center;
+}
+
+.third_line {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    font-family: serif;
+    font-size: 20px;
+}

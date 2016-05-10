@@ -1,14 +1,38 @@
-shinyUI(fixedPage(title='FootballeR',
-  #top spacer
-  br(),
+shinyUI(navbarPage(title='FootballeR', fluid = FALSE,
+             tabPanel('Welcome', 
+                      div(class='bg', 
+                          div(class='first_line', strong('FootballeR')),
+                          br(),
+                          div(class='second_line', 'A Portal to Detailed European Football Statistics'),
+                          br(),
+                          br(),
+                          br(),
+                          img(class='divider', src="black-divider-no-background-md.png"),
+                          br(),
+                          br(),
+                          br(),
+                          div(id='row_images', 
+                              img(class='flags', src="England.png"), 
+                              img(class='flags', src="Scotland.png"),
+                              img(class='flags', src="Germany.png"),
+                              img(class='flags', src="Italy.png"),
+                              img(class='flags', src="Spain.png"),
+                              img(class='flags', src="France.png"),
+                              img(class='flags', src="Netherlands.png"),
+                              img(class='flags', src="Belgium.png"),
+                              img(class='flags', src="Portugal.png"),
+                              img(class='flags', src="Turkey.png"),
+                              img(class='flags', src="Greece.png")
+                              ),
+                          br(),
+                          br(),
+                          div(class='third_line', 'Click the Application button at the top to begin'),
+                          img(class='background', src='football_4-wallpaper-1920x1080_new.jpg'))),
+             
+             
+             tabPanel('Application',
   tags$head(includeCSS('www/football.css')),
   tags$head(tags$script(src="floating_sidebar.js")),
-  tags$head(tags$script(src="table_highlight.js")),
-  fixedRow(
-    column(width=11, h1("FootballeR")),
-    div(style = "right:250px;position:absolute;", column(width=1 , img(src="sport-1019941__180.jpg", height = 80, width = 200)))
-  ),
-  fixedRow(column(width=12, hr())),
   
   sidebarLayout(
     
@@ -155,7 +179,7 @@ shinyUI(fixedPage(title='FootballeR',
     ),    
   width=9)
   )
-))
+)))
 
 
 
