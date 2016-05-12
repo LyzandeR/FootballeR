@@ -27,7 +27,13 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE,
                           br(),
                           br(),
                           div(class='third_line', 'Click the Application button at the top to begin'),
-                          img(class='background', src='football_4-wallpaper-1920x1080_new.jpg'))),
+                          br(),
+                          div(class='third_line', 'Or'),
+                          div(class='third_line', 'Find out more at:'),
+                          a(href="#", id='front_button', class="btn btn-default", role="button",'WIKI')
+                          ),
+                      img(class='background', src='football_4-wallpaper-1920x1080_new.jpg'),
+                      div(class="footer", "I m the sticky footer")),
              
              
              tabPanel('Application',
