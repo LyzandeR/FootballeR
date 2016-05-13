@@ -23,7 +23,7 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE,
                               img(class='flags', src="Portugal.png"),
                               img(class='flags', src="Turkey.png"),
                               img(class='flags', src="Greece.png")
-                              ),
+                          ),
                           br(),
                           br(),
                           div(class='third_line', 'Click the Application button at the top to begin'),
@@ -31,7 +31,7 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE,
                           div(class='third_line', 'Or'),
                           div(class='third_line', 'Find out more at:'),
                           a(href="#", id='front_button', class="btn btn-default", role="button",'WIKI')
-                          ),
+                      ),
                       img(class='background', src='football_4-wallpaper-1920x1080_new.jpg'),
                       div(class="footer", "I m the sticky footer")),
              

@@ -9,14 +9,15 @@ html
 /*Normalize html and body elements,this style is just good to have*/
 body
    {
+  width: 100%;
   margin: 0 0 100px;
-  height: 100%;
+  min-height: 100%;
    }
 
 .container
    {
   margin-bottom:50px;/* Height of footer*/
-  width:1650px;
+  min-width:1650px;
   min-height: 100%;
   height: 100%;
    }
@@ -38,7 +39,7 @@ body
   width: 100%;
   background:#ccc;
   min-height:50px;
-  min-width:1650px;
+  min-width:1750px;
   z-index: 2;
    }
 
@@ -80,23 +81,19 @@ body
 
 /*
 table tr:nth-child(odd){
-	background-color: #e6faff;
+  background-color: #e6faff;
 }
-
 table, th, td{
     border: 1px solid white;
     border-collapse: collapse;
 }
-
 table tr:nth-child(1){
-	background-color: #ffffff;
+  background-color: #ffffff;
 }
-
 table tr:nth-child(2){
-	background-color: #ffffff;
-	border-bottom: 2px solid black;
+  background-color: #ffffff;
+  border-bottom: 2px solid black;
 }
-
 */
 table tr:nth-child(n+3):hover{
     background-color: #7cb5ec;
@@ -128,8 +125,8 @@ td:hover::after {
 }
 
 .navbar{
-	height: 30px;
-	padding-left: 40px;
+  height: 30px;
+  padding-left: 40px;
 }
 
 .bg {
@@ -154,9 +151,9 @@ td:hover::after {
 }
 
 .divider{
-	display: block;
-	margin: 0 auto;
-	z-index: 2;
+  display: block;
+  margin: 0 auto;
+  z-index: 2;
 }
 
 .background{
@@ -164,13 +161,14 @@ td:hover::after {
     left: 0;
     top: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     z-index: -1;
     background: no-repeat center center;
+    background-size: 100% auto;
 }
 
 .flags{
-	display: inline-block;
+  display: inline-block;
     margin-left: auto;
     margin-right: auto;    
     height: 30px; 
@@ -178,7 +176,7 @@ td:hover::after {
 }
 
 #row_images{
-	text-align: center;
+  text-align: center;
 }
 
 .third_line {
@@ -190,11 +188,11 @@ td:hover::after {
 }
 
 #front_button{
-	position: relative;
-	z-index: 2;
-	left: 50%;
-	margin-left: -30px;
-	margin-top: 10px;
+  position: relative;
+  z-index: 2;
+  left: 50%;
+  margin-left: -30px;
+  margin-top: 10px;
     background: #fff;
     background: rgba(255, 255, 255, 0.2);
     font-family: serif;
@@ -202,6 +200,5 @@ td:hover::after {
 }
 
 #front_button:hover{
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
-
