@@ -1,4 +1,4 @@
-shinyUI(navbarPage(title='FootballeR', fluid = FALSE,
+shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
              tabPanel('Welcome', 
                       div(class='bg', 
                           div(class='first_line', strong('FootballeR')),
@@ -32,8 +32,9 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE,
                           div(class='third_line', 'Find out more at:'),
                           a(href="#", id='front_button', class="btn btn-default", role="button",'WIKI')
                       ),
-                      img(class='background', src='football_4-wallpaper-1920x1080_new.jpg'),
-                      div(class="footer", "I m the sticky footer")),
+                      img(class='background', src='football_4-wallpaper-1920x1080_new_cropped.jpg'),
+                      div(class="footer", "Developed with ", icon('heart'), " in R and Rstudio. For the latest Development and Licence: ",
+                          a(id="github_icon", href="https://github.com/LyzandeR/FootballeR", icon('github')))),
              
              
              tabPanel('Application',

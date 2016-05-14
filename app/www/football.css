@@ -37,10 +37,12 @@ body
   left: 0;
   height:50px;
   width: 100%;
-  background:#ccc;
+  background:#f2f2f2;
   min-height:50px;
   min-width:1750px;
   z-index: 2;
+  text-align: center;
+  padding-top: 15px;
    }
 
 /* apparently there is a bug at Rstudio or Bootstrap3 which causes 'row class div' to have margin and padding which creates a horizontal scrollbar*/
@@ -127,6 +129,7 @@ td:hover::after {
 .navbar{
   height: 30px;
   padding-left: 40px;
+  min-width: 1750px;
 }
 
 .bg {
@@ -193,12 +196,24 @@ td:hover::after {
   left: 50%;
   margin-left: -30px;
   margin-top: 10px;
-    background: #fff;
-    background: rgba(255, 255, 255, 0.2);
-    font-family: serif;
-    border: 0.5px ridge lightgrey;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  font-family: serif;
+  border: 0.5px ridge grey;
 }
 
 #front_button:hover{
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+#github_icon{
+  color: black;
+}
+
+#github_icon:hover{
+  color:#999999 ;
+}
+
+.fa-heart{
+  color: red;
 }
