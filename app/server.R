@@ -98,16 +98,6 @@ shinyServer(function(input, output, session){
     #reuse later
     #footy_table     <- footy_table[between(Date, input$date_range[1], input$date_range[2]), ]
     values$data      <- footy_table
-    footy_home_goals <- footy_table[, list(Goals=sum(FTHG),`Total Shots`=sum(HS),`On Target Shots`=sum(HST),`No of Games`=.N),by='HomeTeam']
-    setnames(footy_home_goals, 'HomeTeam', 'Team')
-    footy_away_goals <- footy_table[, list(Goals=sum(FTAG),`Total Shots`=sum(AS),`On Target Shots`=sum(AST),`No of Games`=.N),by='AwayTeam']
-    setnames(footy_away_goals, 'AwayTeam', 'Team')
-    footy_all_goals  <- rbindlist(list(footy_home_goals, footy_away_goals))
-    values$aggr_data <- footy_all_goals[, list(Goals=sum(Goals),
-                                               `Total Shots`=sum(`Total Shots`),
-                                               `On Target Shots`=sum(`On Target Shots`),
-                                               `No of Games`=sum(`No of Games`)), 
-                                        by='Team'][, `Shots per Goal` := `Total Shots` / Goals]
     
     footy_table
     
@@ -194,32 +184,82 @@ shinyServer(function(input, output, session){
   
   output$goals_per_team <- renderHighchart({
     
-    goals_final <- values$aggr_data
-    highchart() %>%
-      hc_title(text = "Shots and Goals per Team") %>%
-      hc_xAxis(categories = goals_final$Team) %>%
-      hc_yAxis(
-        list(
-          title = list(text = "Goals / Shots / Shots on Target"),
-          align = "left",
-          showFirstLabel = FALSE,
-          showLastLabel = FALSE
-        ),
-        list(
-          title = list(text = "Average Shots needed to Score First Goal"),
-          align = "right",
-          showFirstLabel = FALSE,
-          showLastLabel = FALSE,
-          opposite = TRUE
-        )
-      ) %>%
-      hc_add_series(name  = 'Total Shots',     type = 'column', data=goals_final$`Total Shots`) %>%
-      hc_add_series(name  = 'Shots On Target', type = 'column', data=goals_final$`On Target Shots`) %>%
-      hc_add_series(name  = 'Goals',           type = 'column', data=goals_final$Goals) %>%
-      hc_add_series(name  = 'Average Shots to Score', type = 'spline', 
-                    data  = ceiling(goals_final$`Shots per Goal`),
-                    yAxis = 1) %>%
-      hc_tooltip(crosshairs = TRUE, shared=TRUE)
+    footy_tab        <- values$data
+    footy_home_goals <- footy_tab[, list(Goals=sum(FTHG),`Total Shots`=sum(HS),`On Target Shots`=sum(HST),`No of Games`=.N),by='HomeTeam']
+    setnames(footy_home_goals, 'HomeTeam', 'Team')
+    footy_away_goals <- footy_tab[, list(Goals=sum(FTAG),`Total Shots`=sum(AS),`On Target Shots`=sum(AST),`No of Games`=.N),by='AwayTeam']
+    setnames(footy_away_goals, 'AwayTeam', 'Team')
+    footy_all_goals  <- rbindlist(list(footy_home_goals, footy_away_goals))
+    
+    if(input$shots_HA == 'Home'){
+      goals_final <- footy_home_goals[, `Shots per Goal` := `Total Shots` / Goals]
+    }else if(input$shots_HA == 'Home'){
+      goals_final <- footy_away_goals[, `Shots per Goal` := `Total Shots` / Goals]
+    }else{
+      goals_final <- footy_all_goals[, list(Goals=sum(Goals),
+                                            `Total Shots`=sum(`Total Shots`),
+                                            `On Target Shots`=sum(`On Target Shots`),
+                                            `No of Games`=sum(`No of Games`)), 
+                                      by='Team'][, `Shots per Goal` := `Total Shots` / Goals]
+    }
+    
+    if(input$shots_total_perteam == 'Total'){
+      highchart() %>%
+        hc_title(text = "Shots and Goals per Team") %>%
+        hc_xAxis(categories = goals_final[, Team]) %>%
+        hc_yAxis(
+          list(
+            title = list(text = "Goals / Shots / Shots on Target"),
+            align = "left",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE
+          ),
+          list(
+            title = list(text = "Average Shots to Score"),
+            align = "right",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE,
+            opposite = TRUE
+          )
+        ) %>%
+        hc_add_series(name  = 'Total Shots',     type = 'column', data=goals_final[, `Total Shots`]) %>%
+        hc_add_series(name  = 'Shots On Target', type = 'column', data=goals_final[, `On Target Shots`]) %>%
+        hc_add_series(name  = 'Goals',           type = 'column', data=goals_final[, Goals]) %>%
+        hc_add_series(name  = 'Average Shots to Score', type = 'spline', 
+                      data  = ceiling(goals_final[, `Shots per Goal`]),
+                      yAxis = 1) %>%
+        hc_tooltip(crosshairs = TRUE, shared=TRUE)
+    }else if(input$shots_total_perteam == 'Per Game'){
+      highchart() %>%
+        hc_title(text = "Shots and Goals per Team") %>%
+        hc_xAxis(categories = goals_final[, Team]) %>%
+        hc_yAxis(
+          list(
+            title = list(text = "Goals / Shots / Shots on Target"),
+            align = "left",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE
+          ),
+          list(
+            title = list(text = "Average Shots to Score"),
+            align = "right",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE,
+            opposite = TRUE
+          )
+        ) %>%
+        hc_add_series(name  = 'Average Shots',     
+                      type = 'column', data=round(goals_final[, `Total Shots`] / goals_final[, `No of Games`], 2)) %>%
+        hc_add_series(name  = 'Average Shots On Target', 
+                      type = 'column', data=round(goals_final[, `On Target Shots`] / goals_final[, `No of Games`], 2)) %>%
+        hc_add_series(name  = 'Average Goals',           
+                      type = 'column', data=round(goals_final[, Goals] / goals_final[, `No of Games`], 2)) %>%
+        hc_add_series(name  = 'Average Shots to Score', 
+                      type = 'spline', 
+                      data  = ceiling(goals_final[, `Shots per Goal`]),
+                      yAxis = 1) %>%
+        hc_tooltip(crosshairs = TRUE, shared=TRUE)
+    }
           
   })
 
@@ -264,8 +304,19 @@ shinyServer(function(input, output, session){
 
   output$goals_total <- renderHighchart({ 
     
-    goals_final <- values$aggr_data
+    footy_tab        <- values$data
+    footy_home_goals <- footy_tab[, list(Goals=sum(FTHG),`Total Shots`=sum(HS),`On Target Shots`=sum(HST),`No of Games`=.N),by='HomeTeam']
+    setnames(footy_home_goals, 'HomeTeam', 'Team')
+    footy_away_goals <- footy_tab[, list(Goals=sum(FTAG),`Total Shots`=sum(AS),`On Target Shots`=sum(AST),`No of Games`=.N),by='AwayTeam']
+    setnames(footy_away_goals, 'AwayTeam', 'Team')
+    footy_all_goals  <- rbindlist(list(footy_home_goals, footy_away_goals))
+    goals_final <- footy_all_goals[, list(Goals=sum(Goals),
+                                          `Total Shots`=sum(`Total Shots`),
+                                          `On Target Shots`=sum(`On Target Shots`),
+                                          `No of Games`=sum(`No of Games`)), 
+                                   by='Team'][, `Shots per Goal` := `Total Shots` / Goals]
     highchart() %>%
+      hc_title(text = 'League Shots and Goals') %>%
       hc_add_series(name = "Value", type = "funnel",
                     data = list(list(y = sum(goals_final$`Total Shots`), name = "Total Shots"),
                                 list(y = sum(goals_final$`On Target Shots`), name = "Total Shots on Target"),
@@ -274,7 +325,17 @@ shinyServer(function(input, output, session){
   })
 
   output$rate <- renderText({
-    goals_final <- values$aggr_data
+    footy_tab        <- values$data
+    footy_home_goals <- footy_tab[, list(Goals=sum(FTHG),`Total Shots`=sum(HS),`On Target Shots`=sum(HST),`No of Games`=.N),by='HomeTeam']
+    setnames(footy_home_goals, 'HomeTeam', 'Team')
+    footy_away_goals <- footy_tab[, list(Goals=sum(FTAG),`Total Shots`=sum(AS),`On Target Shots`=sum(AST),`No of Games`=.N),by='AwayTeam']
+    setnames(footy_away_goals, 'AwayTeam', 'Team')
+    footy_all_goals  <- rbindlist(list(footy_home_goals, footy_away_goals))
+    goals_final <- footy_all_goals[, list(Goals=sum(Goals),
+                                          `Total Shots`=sum(`Total Shots`),
+                                          `On Target Shots`=sum(`On Target Shots`),
+                                          `No of Games`=sum(`No of Games`)), 
+                                   by='Team'][, `Shots per Goal` := `Total Shots` / Goals]
     ceiling(sum(goals_final$`Total Shots`) / sum(goals_final$Goals))
   })
   

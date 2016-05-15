@@ -64,17 +64,24 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
     
     tabsetPanel(
       tabPanel('League Table',
+               br(),
                fixedRow(tableOutput('league_table')
       )),
       tabPanel('Goals', 
+               br(),
                fixedRow(
-                  column(highchartOutput('goals_per_team' , height='600px'), width=12)),
+                  column(highchartOutput('goals_per_team' , height='450px'), width=10),
+                  column(selectInput('shots_HA', 'Select Home/Away', choices=c('Home', 'Away', 'All'), selected='Home'),
+                         selectInput('shots_total_perteam', 'Select Total / Per Team'    ,
+                                     choices=c('Total', 'Per Game'), selected='Total'), width=2)),
+               br(),
                fixedRow(
-                  column(highchartOutput('goals_over_time', height='600px'), width=10),
+                  column(highchartOutput('goals_over_time', height='450px'), width=10),
                   column(selectInput('team', 'Select Team',      choices=c('Arsenal', 'Chelsea'),  selected='Arsenal'),
                          selectInput(  'HA', 'Select Home/Away', choices=c('Home', 'Away', 'All'), selected='Home'   ), width=2)),
+               br(),
                fixedRow(
-                  column(highchartOutput('goals_total', height = '370px'), width=6),
+                  column(highchartOutput('goals_total', height = '350px'), width=6),
                   column(tags$div(class="icon", id="orange", h1("Average League Shots per Goal"), h1(textOutput("rate"))), width=4)     
       )),
       tabPanel('Results', 

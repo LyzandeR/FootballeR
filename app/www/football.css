@@ -54,8 +54,10 @@ body
 
 .icon
     {
+    position: relative;
+    top: 20px; 
     width:100%;
-    height:370px;
+    height:330px;
     border-radius:50%;
     font-size:30px;
     text-align:center;
