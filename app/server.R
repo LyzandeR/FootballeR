@@ -367,10 +367,11 @@ shinyServer(function(input, output, session){
     }
 
     highchart() %>%
-      hc_xAxis(categories = footy_all_result$Team) %>%
-      hc_add_series(name='Wins'  , type='column', data=footy_all_result$Wins)   %>%
-      hc_add_series(name='Draws' , type='column', data=footy_all_result$Draws)  %>%
-      hc_add_series(name='Losses', type='column', data=footy_all_result$Losses) %>%
+      hc_title(text = "Results per Team") %>%
+      hc_xAxis(categories = footy_all_result[, Team]) %>%
+      hc_add_series(name='Wins'  , type='column', data=footy_all_result[, Wins])   %>%
+      hc_add_series(name='Draws' , type='column', data=footy_all_result[, Draws])  %>%
+      hc_add_series(name='Losses', type='column', data=footy_all_result[, Losses]) %>%
       hc_colors(c('#90ed7d', '#cccccc', '#ff3333')) %>%
       hc_tooltip(crosshairs = TRUE, shared=TRUE)
     
@@ -418,18 +419,21 @@ shinyServer(function(input, output, session){
                    }')
     
     highchart() %>%
-      hc_title(text = input$result_team) %>%
+      hc_title(text = input$result_team, margin = 10) %>%
       hc_yAxis(title = list(text = "Result"),
+               max = 3.5,
+               min = 0.5,
+               startOnTick = FALSE,
                gridLineWidth  = 0,
                showFirstLabel = FALSE,
                showLastLabel  = FALSE,
                #keeping this for now as an example of how to use the formatter. useHTML must be enabled
                labels         = list(enabled=FALSE, useHTML=TRUE, formatter=JS('function() {return this.value;}')),
                plotBands = list(
-                 list(from = 0.5, to = 1.55, color = "#ffcccc", label = list(text = "Losses", y =  40, style    = list(`font-size`='20px'))),
-                 list(from = 1.55, to = 2.45, color = "#e6e6e6", label = list(text = "Draws", rotation = 90, 
+                 list(from = 0.5,  to = 1.5, color = "#ffcccc", label = list(text = "Losses", y =  40, style = list(`font-size`='20px'))),
+                 list(from = 1.5,  to = 2.5, color = "#e6e6e6", label = list(text = "Draws", rotation = 90, 
                                                                             y = -30, zIndex=20, style=list(`font-size`='20px'))),
-                 list(from = 2.45, to = 3.5, color = "#d8f9d2", label = list(text = "Wins"  , y = -40, style    = list(`font-size`='20px'))))) %>% 
+                 list(from = 2.5,  to = 3.5, color = "#d8f9d2", label = list(text = "Wins"  , y = -25, style    = list(`font-size`='20px'))))) %>% 
       hc_xAxis(categories = paste(team_individual_m3$value, format(team_individual_m3$Date, '%d/%m'), sep=' ')) %>%
       hc_add_series(name  = 'Result', type = 'spline', data=as.numeric(factor(team_individual_m2$Result, levels=c('L','D','W')))) %>%
       hc_tooltip(crosshairs = TRUE, useHTML=TRUE, formatter = jav_func) %>%
@@ -628,8 +632,8 @@ shinyServer(function(input, output, session){
                showLastLabel  = FALSE,
                labels         = list(enabled=FALSE, useHTML=TRUE),
                plotBands = list(
-                 list(from = 0.5, to = 1.5, color = "#ffcccc", label = list(text = under, y =  80, style = list(`font-size`='20px'))),
-                 list(from = 1.5, to = 2.5, color = "#e6e6e6", label = list(text = over , y = -70, style = list(`font-size`='20px'))))) %>% 
+                 list(from = 0.5, to = 1.5, color = "#ffcccc", label = list(text = under, y =  50, style = list(`font-size`='20px'))),
+                 list(from = 1.5, to = 2.5, color = "#e6e6e6", label = list(text = over , y = -50, style = list(`font-size`='20px'))))) %>% 
       hc_xAxis(categories = paste(team_individual_m3$value, format(team_individual_m3$Date, '%d/%m'), sep=' ')) %>%
       hc_add_series(name  = 'Result', type = 'spline', data=as.numeric(factor(team_individual_m2[[input$OU_overtime]], levels=c(under, over)))) %>%
       hc_tooltip(crosshairs = TRUE, useHTML=TRUE, formatter = jav_func) %>%
