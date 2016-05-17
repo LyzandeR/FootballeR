@@ -567,6 +567,7 @@ shinyServer(function(input, output, session){
       hc_xAxis(categories=footy_all_result[, Team]) %>%
       hc_add_series(name = Over , type = 'column', data = unname(unlist(footy_all_result[, Over , with=FALSE]))) %>%
       hc_add_series(name = Under, type = 'column', data = unname(unlist(footy_all_result[, Under, with=FALSE]))) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_tooltip(shared=TRUE, crosshairs=TRUE)
       
     
@@ -625,17 +626,21 @@ shinyServer(function(input, output, session){
     )
   
     highchart() %>%
-      hc_title(text = input$OU_overtime) %>%
+      hc_title(text = paste(input$OU_overtime, '-', input$OU_team)) %>%
       hc_yAxis(title = list(text = 'Result'),
                gridLineWidth  = 0,
+               min = 0.5,
+               max = 2.5,
+               startOnTick = FALSE,
                showFirstLabel = FALSE,
                showLastLabel  = FALSE,
                labels         = list(enabled=FALSE, useHTML=TRUE),
                plotBands = list(
                  list(from = 0.5, to = 1.5, color = "#ffcccc", label = list(text = under, y =  50, style = list(`font-size`='20px'))),
-                 list(from = 1.5, to = 2.5, color = "#e6e6e6", label = list(text = over , y = -50, style = list(`font-size`='20px'))))) %>% 
+                 list(from = 1.5, to = 2.5, color = "#b3e0ff", label = list(text = over , y = -50, style = list(`font-size`='20px'))))) %>% 
       hc_xAxis(categories = paste(team_individual_m3$value, format(team_individual_m3$Date, '%d/%m'), sep=' ')) %>%
-      hc_add_series(name  = 'Result', type = 'spline', data=as.numeric(factor(team_individual_m2[[input$OU_overtime]], levels=c(under, over)))) %>%
+      hc_add_series(name  = 'Result', color="#666666", 
+                    type = 'spline', data=as.numeric(factor(team_individual_m2[[input$OU_overtime]], levels=c(under, over)))) %>%
       hc_tooltip(crosshairs = TRUE, useHTML=TRUE, formatter = jav_func) %>%
       hc_legend(enabled=FALSE)
   
@@ -657,8 +662,10 @@ shinyServer(function(input, output, session){
     setorder(mytab, 'Over/Under 0.5')
     highchart() %>%
       hc_title(text = 'Over/Under 0.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 0.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -680,8 +687,10 @@ shinyServer(function(input, output, session){
     
     highchart() %>%
       hc_title(text = 'Over/Under 1.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 1.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -703,8 +712,10 @@ shinyServer(function(input, output, session){
     
     highchart() %>%
       hc_title(text = 'Over/Under 2.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 2.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -726,8 +737,10 @@ shinyServer(function(input, output, session){
     
     highchart() %>%
       hc_title(text = 'Over/Under 3.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 3.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -749,8 +762,10 @@ shinyServer(function(input, output, session){
     
     highchart() %>%
       hc_title(text = 'Over/Under 4.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 4.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -772,8 +787,10 @@ shinyServer(function(input, output, session){
     
     highchart() %>%
       hc_title(text = 'Over/Under 5.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 5.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -795,8 +812,10 @@ shinyServer(function(input, output, session){
     
     highchart() %>%
       hc_title(text = 'Over/Under 6.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 6.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -818,8 +837,10 @@ shinyServer(function(input, output, session){
     
     highchart() %>%
       hc_title(text = 'Over/Under 7.5') %>%
+      hc_yAxis(title = list(text = 'Matches')) %>%
       hc_xAxis(categories = mytab[, `Over/Under 7.5`]) %>%
       hc_add_series(name = 'Matches', type = 'column', data = mytab[, N], colorByPoint=TRUE) %>%
+      hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
   })  
@@ -831,35 +852,68 @@ shinyServer(function(input, output, session){
     setnames(footy_home_cards, 'HomeTeam', 'Team')
     footy_away_cards <- footy_tab[, list(`Yellow Cards`=sum(AY),`Red Cards`=sum(AR),`Fouls`=sum(AF),`No of Games`=.N),by='AwayTeam']
     setnames(footy_away_cards, 'AwayTeam', 'Team')
-    footy_all_cards  <- rbindlist(list(footy_home_cards, footy_away_cards))
-    footy_all_cards  <- footy_all_cards[, list(`Yellow Cards`= sum(`Yellow Cards`),
-                                               `Red Cards`   = sum(`Red Cards`),
-                                               `Fouls`       = sum(Fouls),
-                                               `No of Games` = sum(`No of Games`)),
-                                        by='Team']
-    highchart() %>%
-      hc_title(text = "Yellow and Red Cards per Team") %>%
-      hc_xAxis(categories = footy_all_cards[, Team]) %>%
-      hc_yAxis(
-        list(
-          title = list(text = "Cards"),
-          align = "left",
-          showFirstLabel = FALSE,
-          showLastLabel = FALSE
-        ),
-        list(
-          title = list(text = "Fouls"),
-          align = "right",
-          showFirstLabel = FALSE,
-          showLastLabel = FALSE,
-          opposite = TRUE
-        )
-      ) %>%
-      hc_add_series(name  = 'Yellow Cards', type = 'column', data=footy_all_cards[, `Yellow Cards`])   %>%
-      hc_add_series(name  = 'Red Cards'   , type = 'column', data=footy_all_cards[, `Red Cards`])      %>%
-      hc_add_series(name  = 'Fouls'       , type = 'spline', data=footy_all_cards[, Fouls], yAxis=1) %>%
-      hc_colors(c(hc_get_colors()[1], hc_get_colors()[2], hc_get_colors()[4])) %>%
-      hc_tooltip(crosshairs = TRUE, shared=TRUE)
+    if(input$cards_fouls_HA == 'Home'){
+      footy_all_cards <- footy_home_cards 
+    }else if(input$cards_fouls_HA == 'Away'){
+      footy_all_cards <- footy_away_cards
+    }else if(input$cards_fouls_HA == 'All'){
+      footy_all_cards  <- rbindlist(list(footy_home_cards, footy_away_cards))
+      footy_all_cards  <- footy_all_cards[, list(`Yellow Cards`= sum(`Yellow Cards`),
+                                                 `Red Cards`   = sum(`Red Cards`),
+                                                 `Fouls`       = sum(Fouls),
+                                                 `No of Games` = sum(`No of Games`)),
+                                          by='Team']
+    }
+    
+    if(input$cards_fouls_total == 'Total'){
+      highchart() %>%
+        hc_title(text = "Cards and Fouls per Team") %>%
+        hc_xAxis(categories = footy_all_cards[, Team]) %>%
+        hc_yAxis(
+          list(
+            title = list(text = "Cards"),
+            align = "left",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE
+          ),
+          list(
+            title = list(text = "Fouls"),
+            align = "right",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE,
+            opposite = TRUE
+          )
+        ) %>%
+        hc_add_series(name  = 'Yellow Cards', type = 'column', data=footy_all_cards[, `Yellow Cards`])   %>%
+        hc_add_series(name  = 'Red Cards'   , type = 'column', data=footy_all_cards[, `Red Cards`])      %>%
+        hc_add_series(name  = 'Fouls'       , type = 'spline', data=footy_all_cards[, Fouls], yAxis=1) %>%
+        hc_colors(c('#cccc00', 'red', hc_get_colors()[3])) %>%
+        hc_tooltip(crosshairs = TRUE, shared=TRUE)
+    }else if(input$cards_fouls_total == 'Per Game'){
+      highchart() %>%
+        hc_title(text = "Cards and Fouls per Team") %>%
+        hc_xAxis(categories = footy_all_cards[, Team]) %>%
+        hc_yAxis(
+          list(
+            title = list(text = "Cards"),
+            align = "left",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE
+          ),
+          list(
+            title = list(text = "Fouls"),
+            align = "right",
+            showFirstLabel = FALSE,
+            showLastLabel = FALSE,
+            opposite = TRUE
+          )
+        ) %>%
+        hc_add_series(name  = 'Yellow Cards', type = 'column', data=footy_all_cards[, `Yellow Cards`] / footy_all_cards[, `No of Games`])   %>%
+        hc_add_series(name  = 'Red Cards'   , type = 'column', data=footy_all_cards[, `Red Cards`] / footy_all_cards[, `No of Games`])      %>%
+        hc_add_series(name  = 'Fouls'       , type = 'spline', data=footy_all_cards[, Fouls] / footy_all_cards[, `No of Games`], yAxis=1)   %>%
+        hc_colors(c('#cccc00', 'red', hc_get_colors()[3])) %>%
+        hc_tooltip(crosshairs = TRUE, shared=TRUE)
+      }
     
   })
 
@@ -891,7 +945,7 @@ shinyServer(function(input, output, session){
     }
     
     highchart() %>%
-      hc_title(text = input$cards_team) %>%
+      hc_title(text = paste("Cards / Fouls -", input$cards_team)) %>%
       hc_xAxis(list(categories = paste(team_individual_m3$value, format(team_individual_m3$Date, '%d/%m'), sep=' '))) %>%
       hc_yAxis(
         list(
@@ -911,6 +965,7 @@ shinyServer(function(input, output, session){
       hc_add_series(name  = 'Yellow Cards', type = 'column', data=team_individual_m2[,`Yellow Cards`]) %>%
       hc_add_series(name  = 'Red Cards'   , type = 'column', data=team_individual_m2[,`Red Cards`]) %>%
       hc_add_series(name  = 'Fouls'       , type = 'spline', data=team_individual_m2[,Fouls], yAxis=1) %>%
+      hc_colors(c('#ffff99', 'red', hc_get_colors()[3])) %>%
       hc_tooltip(crosshairs = TRUE, shared=TRUE)
     
   })
@@ -929,6 +984,7 @@ shinyServer(function(input, output, session){
         hc_add_series(name = 'Yellow Cards', type = 'bar', data = refs[, `Yellow Cards`]) %>%
         hc_add_series(name = 'Red Cards'   , type = 'bar', data = refs[, `Red Cards`]) %>%
         hc_add_series(name = 'No of Games' , type = 'bar', data = refs[, `No of Games`]) %>%
+        hc_colors(c('#ffff99', 'red')) %>%
         hc_tooltip(crosshairs = TRUE, shared=TRUE)
     }else{
       highchart() %>%
@@ -936,6 +992,7 @@ shinyServer(function(input, output, session){
         hc_xAxis(categories = refs[, Referee]) %>%
         hc_add_series(name = 'Yellow Cards', type = 'bar', data = round(refs[, `Yellow Cards`] / refs[, `No of Games`], 2)) %>%
         hc_add_series(name = 'Red Cards'   , type = 'bar', data = round(refs[, `Red Cards`]    / refs[, `No of Games`], 2)) %>%
+        hc_colors(c('#ffff99', 'red')) %>%
         hc_tooltip(crosshairs = TRUE, shared=TRUE) 
         
     }
@@ -959,6 +1016,7 @@ shinyServer(function(input, output, session){
       hc_xAxis(categories = all_cards[, rn] ) %>%
       hc_add_series(name = 'Value', type = 'column', data = if(input$abso_ave=='Absolute') all_cards[, V1] else all_cards[, V2], 
                     colorByPoint=TRUE) %>%
+      hc_colors(c('#ffffb3', 'red', hc_get_colors()[3])) %>%
       hc_legend(enabled = FALSE)%>%
       hc_tooltip(followPointer = TRUE, pointFormat = '<span style="color:{series.color}">{series.name}</span>:{point.y:.2f}')
       

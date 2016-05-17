@@ -122,6 +122,7 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
                                                                               'Over/Under 7.5'), selected='Over/Under 2.5'),
                         width=2)
                ),
+               br(),
                fixedRow(
                  column(highchartOutput('OU_over_time', height='450px'), width=10),
                  column(br(), br(), selectInput('OU_team', 'Select Team'     , choices=c('Arsenal', 'Chelsea')    , selected='Arsenal'),
@@ -155,18 +156,24 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
                   div(class="image", highchartOutput("OU_75", height="300px", width="320px")),
                   div(style="clear:both"))
       ),
-      tabPanel('Cards / Fouls', 
+      tabPanel('Cards / Fouls',
+               br(),
                fixedRow(
-                 column(highchartOutput('cards_fouls_team', height='600px'), width=10)),
+                 column(highchartOutput('cards_fouls_team', height='450px'), width=10),
+                 column(br(), br(),selectInput('cards_fouls_HA', 'Select Home/Away', choices=c('Home', 'Away', 'All'), selected='Home'),
+                        selectInput('cards_fouls_total', 'Select Total / Per Team'    ,
+                                    choices=c('Total', 'Per Game'), selected='Total'), width=2)),
+               br(),
                fixedRow(
-                 column(highchartOutput('cards_over_time', height='600px'), width=10),
-                 column(selectInput('cards_team', 'Select Team'      , choices=c('Arsenal', 'Chelsea')    , selected='Arsenal'),
+                 column(highchartOutput('cards_over_time', height='450px'), width=10),
+                 column(br(),br(),selectInput('cards_team', 'Select Team'      , choices=c('Arsenal', 'Chelsea')    , selected='Arsenal'),
                         selectInput('cards_HA'  , 'Select Home/Away' , choices=c('Home', 'Away', 'All'), selected='Home'),
                         width=2)),
+               br(),
                fixedRow(
                  column(highchartOutput('referees', height='500px'), width=5),
-                 column(highchartOutput('total_cards_fouls', height='500px'), width=5),
-                 column(radioButtons('abso_ave', 'Absolute or Average', choices=c('Absolute', 'Average'), selected='Average'), width=2)
+                 column(highchartOutput('total_cards_fouls', height='450px'), width=5),
+                 column(br(),br(),radioButtons('abso_ave', 'Absolute or Average', choices=c('Absolute', 'Average'), selected='Average'), width=2)
       )),
       tabPanel('Corners',
                fixedRow(
