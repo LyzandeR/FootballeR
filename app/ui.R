@@ -176,8 +176,9 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
                  column(br(),br(),radioButtons('abso_ave', 'Absolute or Average', choices=c('Absolute', 'Average'), selected='Average'), width=2)
       )),
       tabPanel('Corners',
+               br(),
                fixedRow(
-                 column(highchartOutput('corners_per_team', height='600px'), width=10),
+                 column(highchartOutput('corners_per_team', height='450px'), width=10),
                  column(selectInput ('corner_ha', 'Select Home/Away'  , choices=c('Home', 'Away', 'All'), selected='Home'),
                         radioButtons('abso_OU'  , 'Total - Over/Under', choices=c('Total', 'Per Game', 'Over/Under'), selected='Total'),
                         conditionalPanel(condition="input.abso_OU=='Over/Under'",
@@ -185,22 +186,27 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
                                                                                 'Corners O/U  8.5',
                                                                                 'Corners O/U 10.5',
                                                                                 'Corners O/U 13.5'), selected='Over/Under 5.5')),
+                        helpText('Note: Over/Under is based on total corners in a game'),
                         width=2)),
+               br(),
                fixedRow(
-                 column(highchartOutput('corners_over_time', height='600px'), width=10),
+                 column(highchartOutput('corners_over_time', height='450px'), width=10),
                  column(selectInput('corner_team', 'Select Team'     , choices=c('Arsenal', 'Chelsea'), selected='Arsenal'),
                         selectInput('corner_HA_overtime'  , 'Select Home/Away' , choices=c('Home', 'Away', 'All'), selected='Home'),
                         width=2)),
                fixedRow(
-                 column(highchartOutput('corners_55', height='500px'), width=5),
-                 column(highchartOutput('corners_85', height='500px'), width=5)),
+                 br(),
+                 column(highchartOutput('corners_55', height='300px'), width=5),
+                 column(highchartOutput('corners_85', height='300px'), width=5)),
                fixedRow(
-                 column(highchartOutput('corners_105', height='500px'), width=5),
-                 column(highchartOutput('corners_135', height='500px'), width=5)
+                 column(highchartOutput('corners_105', height='300px'), width=5),
+                 column(highchartOutput('corners_135', height='300px'), width=5)
       )),
-      tabPanel('Raw Table', 
+      tabPanel('Raw Table',
+               br(),
                fixedRow(
-                 DT::dataTableOutput('raw')       
+                 column(DT::dataTableOutput('raw', width='100%'), width=10),
+                 br(),br(),column(downloadButton('downloadData', 'Download Data'), width=2)
       ))
     ),    
   width=9)
