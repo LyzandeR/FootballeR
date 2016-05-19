@@ -179,7 +179,7 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
                br(),
                fixedRow(
                  column(highchartOutput('corners_per_team', height='450px'), width=10),
-                 column(selectInput ('corner_ha', 'Select Home/Away'  , choices=c('Home', 'Away', 'All'), selected='Home'),
+                 column(br(),br(),selectInput ('corner_ha', 'Select Home/Away'  , choices=c('Home', 'Away', 'All'), selected='Home'),
                         radioButtons('abso_OU'  , 'Total - Over/Under', choices=c('Total', 'Per Game', 'Over/Under'), selected='Total'),
                         conditionalPanel(condition="input.abso_OU=='Over/Under'",
                         selectInput('cornerOU' , 'Select Over/Under', choices=c('Corners O/U  5.5',
@@ -191,7 +191,7 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
                br(),
                fixedRow(
                  column(highchartOutput('corners_over_time', height='450px'), width=10),
-                 column(selectInput('corner_team', 'Select Team'     , choices=c('Arsenal', 'Chelsea'), selected='Arsenal'),
+                 column(br(),br(),selectInput('corner_team', 'Select Team'     , choices=c('Arsenal', 'Chelsea'), selected='Arsenal'),
                         selectInput('corner_HA_overtime'  , 'Select Home/Away' , choices=c('Home', 'Away', 'All'), selected='Home'),
                         width=2)),
                fixedRow(
