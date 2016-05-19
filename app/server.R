@@ -2,103 +2,116 @@ shinyServer(function(input, output, session){
 
   values <- reactiveValues()
   
-#   observe({
-#     
-#     updateSelectInput(session, 'division', choices=switch(input$country,
-#                                                           Greece      = 'Superleague',
-#                                                           England     = c('Premier League', 'Championship', 'League 1', 'League 2', 'Conference'),
-#                                                           Scotland    = c('Premier  League', 'Division 1', 'Division 2', 'Division 3'),
-#                                                           Germany     = c('Bundesliga 1', 'Bundesliga 2'),
-#                                                           Italy       = c('Serie A', 'Serie B'),
-#                                                           Spain       = c('Primera Division', 'Segunda Division'),
-#                                                           France      = c('Ligue 1', 'Ligue 2'),
-#                                                           Netherlands = 'Eredivisie',
-#                                                           Belgium     = 'Jupiler League',
-#                                                           Portugal    = 'Liga 1',
-#                                                           Turkey      = 'Ligi 1')
-#                       ) 
-#     
-#     updateSelectInput(session, 'season', choices=switch(input$country,
-#                                                         Greece      = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1],
-#                                                         England     = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
-#                                                         Scotland    = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1],
-#                                                         Germany     = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
-#                                                         Italy       = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
-#                                                         Spain       = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
-#                                                         France      = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
-#                                                         Netherlands = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
-#                                                         Belgium     = rev(paste(1995:2016, shift(1995:2016, type='lead'), sep='-'))[-1],
-#                                                         Portugal    = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1],
-#                                                         Turkey      = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1]),
-#                       )
-#     
-#     values$country <- input$country
-#   
-#   })
-#   
-#   dataInput <- reactive({
-#     
-#     country_code       <- switch(isolate(values$country),
-#                                  Greece      = 'G',
-#                                  England     = 'E',
-#                                  Scotland    = 'SC',
-#                                  Germany     = 'D',
-#                                  Italy       = 'I',
-#                                  Spain       = 'SP',
-#                                  France      = 'F',
-#                                  Netherlands = 'N',
-#                                  Belgium     = 'B',
-#                                  Portugal    = 'P',
-#                                  Turkey      = 'T')
-#     
-#     division_code      <- switch(input$division,
-#                                  `Premier League`    = '0',
-#                                  Championship        = '1',
-#                                  `League 1`          = '2',
-#                                  `League 2`          = '3',
-#                                  Conference          = 'C',
-#                                  `Premier  League`   = '0',
-#                                  `Division 1`        = '1',
-#                                  `Division 2`        = '2',
-#                                  `Division 3`        = '3',
-#                                  `Bundesliga 1`      = '1',
-#                                  `Bundesliga 2`      = '2',
-#                                  `Serie A`           = '1',
-#                                  `Serie B`           = '2',
-#                                  `Primera Division`  = '1',
-#                                  `Segunda Division`  = '2',
-#                                  `Ligue 1`           = '1',
-#                                  `Ligue 2`           = '2',
-#                                  Eredivisie          = '1',
-#                                  `Jupiler League`    = '1',
-#                                  `Liga 1`            = '1',
-#                                  `Ligi 1`            = '1',
-#                                  Superleague         = '1'
-#     )
-#     
-#     season_code        <- paste0(substr(input$season, 3, 4), substr(input$season, 8, 9)) 
-#     
-#     print(country_code)
-#     print(division_code)
-#     print(season_code)
-#     
-#     footy_set <- fread(paste0('http://www.football-data.co.uk/mmz4281/', season_code, '/', country_code, division_code, '.csv'))
-#     #setDT(footy_set[, grep('^X', names(footy_set), invert=TRUE, value=TRUE)])
-#     footy_set[, Date := as.IDate(Date, format='%d/%m/%y')]
-#     footy_set
-#     
-#   }) 
+  observe({
+
+    updateSelectInput(session, 'division', choices=switch(input$country,
+                                                          Greece      = 'Superleague',
+                                                          England     = c('Premier League', 'Championship', 'League 1', 'League 2', 'Conference'),
+                                                          Scotland    = c('Premier  League', 'Division 1', 'Division 2', 'Division 3'),
+                                                          Germany     = c('Bundesliga 1', 'Bundesliga 2'),
+                                                          Italy       = c('Serie A', 'Serie B'),
+                                                          Spain       = c('Primera Division', 'Segunda Division'),
+                                                          France      = c('Ligue 1', 'Ligue 2'),
+                                                          Netherlands = 'Eredivisie',
+                                                          Belgium     = 'Jupiler League',
+                                                          Portugal    = 'Liga 1',
+                                                          Turkey      = 'Ligi 1')
+                      )
+
+    updateSelectInput(session, 'season', choices=switch(input$country,
+                                                        Greece      = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1],
+                                                        England     = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
+                                                        Scotland    = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1],
+                                                        Germany     = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
+                                                        Italy       = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
+                                                        Spain       = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
+                                                        France      = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
+                                                        Netherlands = rev(paste(1993:2016, shift(1993:2016, type='lead'), sep='-'))[-1],
+                                                        Belgium     = rev(paste(1995:2016, shift(1995:2016, type='lead'), sep='-'))[-1],
+                                                        Portugal    = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1],
+                                                        Turkey      = rev(paste(1994:2016, shift(1994:2016, type='lead'), sep='-'))[-1])
+                      )
+
+    values$country <- input$country
+
+  })
+
+  dataInput <- reactive({
+
+    country_code       <- switch(isolate(values$country),
+                                 Greece      = 'G',
+                                 England     = 'E',
+                                 Scotland    = 'SC',
+                                 Germany     = 'D',
+                                 Italy       = 'I',
+                                 Spain       = 'SP',
+                                 France      = 'F',
+                                 Netherlands = 'N',
+                                 Belgium     = 'B',
+                                 Portugal    = 'P',
+                                 Turkey      = 'T')
+
+    division_code      <- switch(input$division,
+                                 `Premier League`    = '0',
+                                 Championship        = '1',
+                                 `League 1`          = '2',
+                                 `League 2`          = '3',
+                                 Conference          = 'C',
+                                 `Premier  League`   = '0',
+                                 `Division 1`        = '1',
+                                 `Division 2`        = '2',
+                                 `Division 3`        = '3',
+                                 `Bundesliga 1`      = '1',
+                                 `Bundesliga 2`      = '2',
+                                 `Serie A`           = '1',
+                                 `Serie B`           = '2',
+                                 `Primera Division`  = '1',
+                                 `Segunda Division`  = '2',
+                                 `Ligue 1`           = '1',
+                                 `Ligue 2`           = '2',
+                                 Eredivisie          = '1',
+                                 `Jupiler League`    = '1',
+                                 `Liga 1`            = '1',
+                                 `Ligi 1`            = '1',
+                                 Superleague         = '1'
+    )
+
+    season_code        <- paste0(substr(input$season, 3, 4), substr(input$season, 8, 9))
+
+    print(country_code)
+    print(division_code)
+    print(season_code)
+
+    footy_set <- read.csv(paste0('http://www.football-data.co.uk/mmz4281/', season_code, '/', country_code, division_code, '.csv'))
+    footy_set <- footy_set[, grep('^X', names(footy_set), invert=TRUE, value=TRUE)]
+    setDT(footy_set)
+    footy_set[, Date := as.IDate(Date, format='%d/%m/%y')]
+    
+    updateSelectInput(session, 'team'       , choices = sort(unique(c(footy_set[, unique(HomeTeam)] , footy_set[, unique(AwayTeam)]))))
+    updateSelectInput(session, 'result_team', choices = sort(unique(c(footy_set[, unique(HomeTeam)] , footy_set[, unique(AwayTeam)]))))
+    updateSelectInput(session, 'OU_team'    , choices = sort(unique(c(footy_set[, unique(HomeTeam)] , footy_set[, unique(AwayTeam)]))))
+    updateSelectInput(session, 'cards_team' , choices = sort(unique(c(footy_set[, unique(HomeTeam)] , footy_set[, unique(AwayTeam)]))))
+    updateSelectInput(session, 'corner_team', choices = sort(unique(c(footy_set[, unique(HomeTeam)] , footy_set[, unique(AwayTeam)]))))
+    updateSliderInput(session, 'date_range' , value=c(as.IDate(paste0(footy_set[, year(min(Date))],'-08-01')),
+                                                      as.IDate(paste0(footy_set[, year(max(Date))],'-06-30'))),
+                      min=as.IDate(paste0(footy_set[, year(min(Date))],'-08-01')),
+                      max=as.IDate(paste0(footy_set[, year(max(Date))],'-06-30')))
+   
+    
+    footy_set
+
+  })
   
   
   output$raw <- DT::renderDataTable(DT::datatable({
     
     #reuse later
-    #footy_table     <- dataInput()
-    footy_table      <- footy_tab
+    footy_table     <- dataInput()
+    #footy_table    <- footy_tab
     #reuse later
-    #footy_table     <- footy_table[between(Date, input$date_range[1], input$date_range[2]), ]
-    values$data      <- footy_table
-    
+    footy_table     <- footy_table[between(Date, input$date_range[1], input$date_range[2]), ]
+    values$data     <- footy_table
+
     footy_table
     
   }, options=list(autoWidth=TRUE, dom = 'tp', scrollX=TRUE, columnDefs=list(list(width = '100px', targets = 2 )))))
@@ -117,6 +130,9 @@ shinyServer(function(input, output, session){
   output$league_table <- renderTable({
     
     footy_tab  <- values$data
+    # footy_table     <- dataInput()
+    # footy_table     <- footy_table[between(Date, input$date_range[1], input$date_range[2]), ]
+    # footy_tab       <- footy_table
     
     teams <- unique(c(footy_tab[ , unique(HomeTeam)], footy_tab[ , unique(AwayTeam)]))
     
@@ -150,25 +166,29 @@ shinyServer(function(input, output, session){
     home_team_stats <- rbindlist(home_team_stats)
     away_team_stats <- rbindlist(away_team_stats)
     
-    team_stats <- cbind(home_team_stats, away_team_stats)[, list(Team, 
-                                                                 Played = Played1 + Played2, 
-                                                                 `Home Wins`, `Home Draws`, `Home Losses`, `Home Scored`, `Home Conceded`, 
-                                                                 `Away Wins`, `Away Draws`, `Away Losses`, `Away Scored`, `Away Conceded`,
-                                                                 `Total Wins`    = `Home Wins`     + `Away Wins`,
-                                                                 `Total Draws`   = `Home Draws`    + `Away Draws`,
-                                                                 `Total Losses`  = `Home Losses`   + `Away Losses`,
-                                                                 `Total Scored`  = `Home Scored`   + `Away Scored`,
-                                                                 `Total Conceded`= `Home Conceded` + `Away Conceded`,
-                                                                 `Goal Diff` = `Home Scored` + `Away Scored` - `Home Conceded` - `Away Conceded`, 
-                                                                 Points      = as.integer(Points1 + Points2))][,
-                                                                 total_scored := `Home Scored` + `Away Scored`]
+    team_stats <- cbind(home_team_stats, away_team_stats)
+    #str(team_stats)
+    try({
+    team_stats <- team_stats[, list(Team, 
+                                    Played = Played1 + Played2, 
+                                    `Home Wins`, `Home Draws`, `Home Losses`, `Home Scored`, `Home Conceded`, 
+                                    `Away Wins`, `Away Draws`, `Away Losses`, `Away Scored`, `Away Conceded`,
+                                    `Total Wins`    = `Home Wins`     + `Away Wins`,
+                                    `Total Draws`   = `Home Draws`    + `Away Draws`,
+                                    `Total Losses`  = `Home Losses`   + `Away Losses`,
+                                    `Total Scored`  = `Home Scored`   + `Away Scored`,
+                                    `Total Conceded`= `Home Conceded` + `Away Conceded`,
+                                    `Goal Diff` = `Home Scored` + `Away Scored` - `Home Conceded` - `Away Conceded`, 
+                                    Points      = as.integer(Points1 + Points2))][,
+                                    total_scored := `Home Scored` + `Away Scored`]
+    
     setorder(team_stats, -Points, -`Goal Diff`, -total_scored)
     team_stats[, Pos := as.character(.I)]
     team_stats[, total_scored := NULL]
     team_stats <- team_stats[, c('Pos', names(team_stats)[-length(names(team_stats))]), with = FALSE]
 
     names(team_stats) <- gsub('Home|Away|Total', '', names(team_stats))
-    
+    }, silent=TRUE)
     team_stats
     
     
@@ -194,6 +214,8 @@ shinyServer(function(input, output, session){
   output$goals_per_team <- renderHighchart({
     
     footy_tab        <- values$data
+    #print('goals')
+    #print(str(footy_tab))
     footy_home_goals <- footy_tab[, list(Goals=sum(FTHG),`Total Shots`=sum(HS),`On Target Shots`=sum(HST),`No of Games`=.N),by='HomeTeam']
     setnames(footy_home_goals, 'HomeTeam', 'Team')
     footy_away_goals <- footy_tab[, list(Goals=sum(FTAG),`Total Shots`=sum(AS),`On Target Shots`=sum(AST),`No of Games`=.N),by='AwayTeam']
@@ -493,7 +515,7 @@ shinyServer(function(input, output, session){
 
   output$team_OU <- renderHighchart ({
   
-    footy_tab  <- isolate(values$data)
+    footy_tab  <- values$data
     HA   <- switch(input$ou_ha, Home = 'HomeTeam', Away = 'AwayTeam', All = 'All')
     FTHT <- switch(input$ou_FTHT,       `Full Time` = 'FT', `Half Time` = 'HT')
     if(HA %in% c('HomeTeam', 'AwayTeam')){
@@ -958,6 +980,7 @@ shinyServer(function(input, output, session){
   output$referees <- renderHighchart({
     
     footy_tab <- values$data
+    validate(need('Referee' %in% names(footy_tab), 'No referee data available'))
     footy_tab[, `Yellow Cards` := HY + AY][, `Red Cards` := HR + AR]
     refs <- footy_tab[, list(`Yellow Cards` = sum(`Yellow Cards`), `Red Cards` = sum(`Red Cards`), `No of Games` = .N), by='Referee']
     setorder(refs, -`Yellow Cards`)
