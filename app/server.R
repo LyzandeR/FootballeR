@@ -400,6 +400,9 @@ shinyServer(function(input, output, session) {
     
     }
     
+    #order according to teams
+    setorder(goals_final, Team)
+    
     #account for total
     if(input$shots_total_perteam == 'Total'){
       highchart() %>%
@@ -717,7 +720,10 @@ shinyServer(function(input, output, session) {
                                            by = 'Team']
       
     }
-
+    
+    #order data according to team
+    setorder(footy_all_result, Team)
+    
     #plot
     highchart() %>%
       hc_title(text = "Results per Team") %>%
@@ -1115,6 +1121,9 @@ shinyServer(function(input, output, session) {
     #get over and under names
     Over  <- names(footy_all_result)[like(names(footy_all_result), 'Over*')]
     Under <- names(footy_all_result)[like(names(footy_all_result), 'Under*')]
+    
+    #order data according to Team
+    setorder(footy_all_result, Team)
     
     #plot
     highchart() %>%
@@ -1637,6 +1646,9 @@ shinyServer(function(input, output, session) {
                                          by='Team']
     }
     
+    #order data set according to Team
+    setorder(footy_all_cards, Team)
+    
     #plotting
     if (input$cards_fouls_total == 'Total') {
       highchart() %>%
@@ -1888,7 +1900,7 @@ shinyServer(function(input, output, session) {
     
   })  
 
-
+  #CORNERS TAB------------------------------------------------------------------
   #corners per team aggregated--------------------------------------------------
   output$corners_per_team <- renderHighchart({
     
@@ -1954,6 +1966,9 @@ shinyServer(function(input, output, session) {
       Over  <- names(footy_all_result)[like(names(footy_all_result), 'Over*')]
       Under <- names(footy_all_result)[like(names(footy_all_result), 'Under*')]
       
+      #set order to data set according to Team
+      setorder(footy_all_result, Team)
+      
       #plot
       highchart() %>%
         hc_title(text = 'Corners per Team') %>%
@@ -2000,6 +2015,9 @@ shinyServer(function(input, output, session) {
                                        footy_away_result), use.names = TRUE)
         footy_result <- footy_result[, lapply(.SD, sum), by = 'Team']
       }
+      
+      #set order to data set according to Team
+      setorder(footy_result, Team)
       
       if(input$abso_OU == 'Total') {
         highchart() %>%

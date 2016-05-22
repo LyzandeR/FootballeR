@@ -151,6 +151,10 @@ The second graph shows the individual corners won by each of the teams. The game
 
 The rest of the graphs show total league information for Corner Over/Under combinations of 5.5, 8.5, 10.5 and 13.5 corners. 
 
+#### Raw Data
+
+This tab contains the raw data as downloaded from football.data.co.uk. You can click the download button to download a csv copy.
+
 # Data
 
 All the data are provided from and owned by the amazing and free data base of European Football at [football-data.co.uk]. If you haven't already you can visit their site for betting information, live scores, historical data (including betting data) and much more!
