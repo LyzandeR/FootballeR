@@ -1,4 +1,5 @@
 #load needed packages
+library(shiny)
 library(data.table)
 library(highcharter)
 library(DT)

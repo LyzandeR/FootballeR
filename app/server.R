@@ -41,38 +41,38 @@ shinyServer(function(input, output, session) {
       'season', 
       choices = switch(input$country,
                        Greece      = rev(paste(1994:2016, 
-                                               shift(1994:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1994:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        England     = rev(paste(1993:2016,
-                                               shift(1993:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1993:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        Scotland    = rev(paste(1994:2016,
-                                               shift(1994:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1994:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        Germany     = rev(paste(1993:2016,
-                                               shift(1993:2016, type='lead'),
+                                               shift(1993:2016, type = 'lead'),
                                                sep='-'))[-1],
                        Italy       = rev(paste(1993:2016,
-                                               shift(1993:2016, type='lead'),
+                                               shift(1993:2016, type = 'lead'),
                                                sep='-'))[-1],
                        Spain       = rev(paste(1993:2016,
-                                               shift(1993:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1993:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        France      = rev(paste(1993:2016,
-                                               shift(1993:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1993:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        Netherlands = rev(paste(1993:2016,
-                                               shift(1993:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1993:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        Belgium     = rev(paste(1995:2016,
-                                               shift(1995:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1995:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        Portugal    = rev(paste(1994:2016,
-                                               shift(1994:2016, type='lead'),
-                                               sep='-'))[-1],
+                                               shift(1994:2016, type = 'lead'),
+                                               sep = '-'))[-1],
                        Turkey      = rev(paste(1994:2016,
-                                               shift(1994:2016, type='lead'),
-                                               sep='-'))[-1]
+                                               shift(1994:2016, type = 'lead'),
+                                               sep = '-'))[-1]
                 )
     )
 
@@ -138,16 +138,21 @@ shinyServer(function(input, output, session) {
                                  division_code, 
                                  '.csv'))
     
+    #some files contain empty lines which cause problems with date conversions
+    #remove them
+    footy_set <- footy_set[!footy_set$Date == '', ]
+    
+    #remove empty columns 
     footy_set <- footy_set[, grep('^X', 
                                   names(footy_set), 
-                                  invert=TRUE, 
-                                  value=TRUE)]
+                                  invert = TRUE, 
+                                  value = TRUE)]
     
     #convert to data.table for super fast manipulations
     setDT(footy_set)
     
     footy_set[, Date := as.IDate(Date, format='%d/%m/%y')]
-    
+
     #update all in-tab teams (second graphs in each tab)
     updateSelectInput(session, 
                       'team',
@@ -202,7 +207,7 @@ shinyServer(function(input, output, session) {
 
     footy_table
     
-  }, options = list(autoWidth=TRUE, dom = 'tp', scrollX=TRUE)))
+  }, options = list(autoWidth = TRUE, dom = 'tp', scrollX = TRUE)))
   
   #setting raw tab to never suspend so that------------------------------------- 
   #any changes are taken into account and so that-------------------------------
@@ -359,20 +364,20 @@ shinyServer(function(input, output, session) {
     
     #home goals
     footy_home_goals <- footy_tab[, 
-                                  list(Goals=sum(FTHG),
-                                       `Total Shots`=sum(HS),
-                                       `On Target Shots`=sum(HST),
-                                       `No of Games`=.N),
-                                  by='HomeTeam']
+                                  list(Goals = sum(FTHG),
+                                       `Total Shots` = sum(HS),
+                                       `On Target Shots` = sum(HST),
+                                       `No of Games` = .N),
+                                  by = 'HomeTeam']
     setnames(footy_home_goals, 'HomeTeam', 'Team')
     
     #away goals
     footy_away_goals <- footy_tab[, 
-                                  list(Goals=sum(FTAG),
-                                       `Total Shots`=sum(AS),
-                                       `On Target Shots`=sum(AST),
-                                       `No of Games`=.N),
-                                  by='AwayTeam']
+                                  list(Goals = sum(FTAG),
+                                       `Total Shots` = sum(AS),
+                                       `On Target Shots` = sum(AST),
+                                       `No of Games` = .N),
+                                  by = 'AwayTeam']
     setnames(footy_away_goals, 'AwayTeam', 'Team')
     
     #bind home and away
@@ -389,7 +394,7 @@ shinyServer(function(input, output, session) {
                                           `Total Shots` = sum(`Total Shots`),
                                           `On Target Shots` = sum(`On Target Shots`),
                                           `No of Games` = sum(`No of Games`)), 
-                                     by='Team']
+                                     by = 'Team']
       
       goals_final[, `Shots per Goal` := `Total Shots` / Goals]
     
@@ -484,7 +489,7 @@ shinyServer(function(input, output, session) {
                                       Score = paste(FTHG, FTAG, sep ='-'))]
     
     team_individual_m <- melt(team_individual, 
-                               measure.vars=c('HomeTeam', 'AwayTeam'))
+                               measure.vars = c('HomeTeam', 'AwayTeam'))
     team_individual_m2 <- team_individual_m[value == input$team,]
     setorder(team_individual_m2, Date)
     
@@ -504,7 +509,7 @@ shinyServer(function(input, output, session) {
       
       team_individual_m3 <-
         team_individual_m3[variable == 'AwayTeam', list(Date, value)]
-      
+ 
     } else if (input$HA == 'Away') {
      
       team_individual_m2 <- 
@@ -539,8 +544,8 @@ shinyServer(function(input, output, session) {
       hc_title(text = paste('Shots / Goals - ', input$team)) %>%
       hc_xAxis(list(categories = paste(team_individual_m3$value,
                                        format(team_individual_m3$Date, '%d/%m'),
-                                       sep=' ')),
-               list(categories = team_individual_m2$Score, opposite=TRUE)) %>%
+                                       sep = ' ')),
+               list(categories = team_individual_m2$Score, opposite = TRUE)) %>%
       hc_add_series(name = 'Total Shots',
                     type = 'spline',
                     data = team_individual_m2$`Total Shots`) %>%
@@ -550,8 +555,8 @@ shinyServer(function(input, output, session) {
       hc_add_series(name = 'Goals',
                     type = 'spline',
                     data = team_individual_m2$Goals,
-                    xAxis=1) %>%
-      hc_tooltip(crosshairs = TRUE, shared=TRUE)
+                    xAxis = 1) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE)
     
   })
 
@@ -587,7 +592,7 @@ shinyServer(function(input, output, session) {
                                         `Total Shots` = sum(`Total Shots`),
                                         `On Target Shots` = sum(`On Target Shots`),
                                         `No of Games` = sum(`No of Games`)), 
-                                   by='Team']
+                                   by = 'Team']
     goals_final[, `Shots per Goal` := `Total Shots` / Goals]
     
     #plot
@@ -616,7 +621,7 @@ shinyServer(function(input, output, session) {
                                   list(Goals = sum(FTHG),
                                        `Total Shots` = sum(HS),
                                        `On Target Shots` = sum(HST),
-                                       `No of Games`=.N), 
+                                       `No of Games` = .N), 
                                   by = 'HomeTeam']
     setnames(footy_home_goals, 'HomeTeam', 'Team')
     
@@ -626,7 +631,7 @@ shinyServer(function(input, output, session) {
                                        `Total Shots` = sum(AS),
                                        `On Target Shots` = sum(AST),
                                        `No of Games` = .N),
-                                  by='AwayTeam']
+                                  by = 'AwayTeam']
     setnames(footy_away_goals, 'AwayTeam', 'Team')
     
     #bind goals
@@ -637,7 +642,7 @@ shinyServer(function(input, output, session) {
                                         `Total Shots` = sum(`Total Shots`),
                                         `On Target Shots` = sum(`On Target Shots`),
                                         `No of Games` = sum(`No of Games`)), 
-                                   by='Team']
+                                   by = 'Team']
     goals_final[, `Shots per Goal` := `Total Shots` / Goals]
     
     #get the ceiling of the shots - needs to be integer
@@ -662,19 +667,20 @@ shinyServer(function(input, output, session) {
                    `Half Time` = 'HTR')
     
     #validation in case HS is not there
-    if(FTHT == 'HTR') {
+    if (FTHT == 'HTR') {
      validate(need('HS' %in% names(footy_tab), 
                    'Half Time Results are not Available \nfor this league'))
     }
     
     #account for hometeam and awayteam
-    if(HA %in% c('HomeTeam', 'AwayTeam')) {
-      footy_result <- footy_tab[, .N, by=c(HA, FTHT)]
+    if (HA %in% c('HomeTeam', 'AwayTeam')) {
+     
+      footy_result <- footy_tab[, .N, by = c(HA, FTHT)]
       footy_result_dcast <- dcast(footy_result, 
                                   as.formula(paste(HA, '~', FTHT)),
-                                  value.var='N')
+                                  value.var = 'N')
       
-      if(HA == 'AwayTeam') setnames(footy_result_dcast, c('H','A'), c('A','H'))
+      if (HA == 'AwayTeam') setnames(footy_result_dcast, c('H','A'), c('A','H'))
       
       setnames(footy_result_dcast, HA, 'Team')
       
@@ -686,28 +692,29 @@ shinyServer(function(input, output, session) {
                                                   Losses = A)]
       
     } else {
-      footy_home_result <- footy_tab[, .N, by=c('HomeTeam', FTHT)]
+     
+      footy_home_result <- footy_tab[, .N, by = c('HomeTeam', FTHT)]
       footy_home_result_dcast <- dcast(footy_home_result, 
                                        as.formula(paste('HomeTeam ~', FTHT)), 
-                                       value.var='N')
+                                       value.var = 'N')
       setnames(footy_home_result_dcast, 'HomeTeam', 'Team')
       
       footy_away_result_dcast <- na_converter(footy_home_result_dcast)
-      footy_away_result       <- footy_tab[, .N, by=c('AwayTeam', FTHT)]
+      footy_away_result       <- footy_tab[, .N, by = c('AwayTeam', FTHT)]
       footy_away_result_dcast <- dcast(footy_away_result, 
                                        as.formula(paste('AwayTeam ~', FTHT)), 
-                                       value.var='N')
+                                       value.var = 'N')
       setnames(footy_away_result_dcast, c('H','A'), c('A','H'))
       setnames(footy_away_result_dcast, 'AwayTeam', 'Team')
       footy_away_result_dcast <- na_converter(footy_away_result_dcast)
       footy_all_result <- rbindlist(list(footy_home_result_dcast, 
                                          footy_away_result_dcast),
-                                    use.names=TRUE)
+                                    use.names = TRUE)
       footy_all_result <- footy_all_result[, 
                                            list(Wins = sum(H), 
                                                 Draws = sum(D), 
                                                 Losses = sum(A)), 
-                                           by='Team']
+                                           by = 'Team']
       
     }
 
@@ -725,7 +732,7 @@ shinyServer(function(input, output, session) {
                     type = 'column',
                     data = footy_all_result[, Losses]) %>%
       hc_colors(c('#90ed7d', '#cccccc', '#ff3333')) %>%
-      hc_tooltip(crosshairs = TRUE, shared=TRUE)
+      hc_tooltip(crosshairs = TRUE, shared = TRUE)
     
   })
 
@@ -751,7 +758,7 @@ shinyServer(function(input, output, session) {
     
     #melt data to create home and away
     team_individual_m <- melt(team_individual, 
-                              measure.vars=c('HomeTeam', 'AwayTeam'))
+                              measure.vars = c('HomeTeam', 'AwayTeam'))
     team_individual_m2  <- team_individual_m[value == input$result_team,]
     setorder(team_individual_m2, Date)
     team_individual_m3  <- team_individual_m[value != input$result_team,]
@@ -776,7 +783,7 @@ shinyServer(function(input, output, session) {
         team_individual_m3[variable == 'HomeTeam', list(Date, value)]
     } else {
       team_individual_m2[variable=='HomeTeam' & Result == 'H', 
-                         Result := 'W'][variable=='HomeTeam' & Result == 'A', 
+                         Result := 'W'][variable == 'HomeTeam' & Result == 'A', 
                                         Result := 'L']
       team_individual_m2[variable=='AwayTeam' & Result == 'H', 
                          Result := 'L'][variable=='AwayTeam' & Result == 'A', 
@@ -786,11 +793,11 @@ shinyServer(function(input, output, session) {
     
     #specify ad_hoc javascript function for formatting hovering
     jav_func <- JS('function() {
-                       if(this.y == 2) {
+                       if (this.y == 2) {
                           return this.series.name + ": Draw";
-                       }else if(this.y == 1) {
+                       } else if (this.y == 1) {
                           return this.series.name + ": Loss";
-                       }else{
+                       } else {
                           return this.series.name + ": Win";
                        }
                    }')
@@ -805,9 +812,9 @@ shinyServer(function(input, output, session) {
                gridLineWidth  = 0,
                #keeping this for now as an example of how to use the formatter. 
                #useHTML must be enabled
-               labels = list(enabled=FALSE, 
-                             useHTML=TRUE, 
-                             formatter=JS('function() {return this.value;}')),
+               labels = list(enabled = FALSE, 
+                             useHTML = TRUE, 
+                             formatter = JS('function() {return this.value;}')),
                plotBands = list(
                  list(from = 0.5,  
                       to = 1.5, 
@@ -822,24 +829,24 @@ shinyServer(function(input, output, session) {
                                    rotation = 90, 
                                    y = -30, 
                                    zIndex = 20, 
-                                   style = list(`font-size`='20px'))),
+                                   style = list(`font-size` = '20px'))),
                  list(from = 2.5,  
                       to = 3.5, 
                       color = "#d8f9d2", 
                       label = list(text = "Wins", 
                                    y = -25, 
-                                   style = list(`font-size`='20px'))))) %>% 
+                                   style = list(`font-size` = '20px'))))) %>% 
       hc_xAxis(categories = paste(team_individual_m3$value, 
                                   format(team_individual_m3$Date, '%d/%m'), 
-                                  sep=' ')) %>%
+                                  sep = ' ')) %>%
       hc_add_series(name = 'Result', 
                     type = 'spline', 
                     data = as.numeric(factor(team_individual_m2$Result, 
-                                             levels=c('L','D','W')))) %>%
+                                             levels = c('L','D','W')))) %>%
       hc_tooltip(crosshairs = TRUE, 
                  useHTML = TRUE, 
                  formatter = jav_func) %>%
-      hc_legend(enabled=FALSE)
+      hc_legend(enabled = FALSE)
         
   })
 
@@ -861,7 +868,7 @@ shinyServer(function(input, output, session) {
                          , N],
                       colorByPoint = TRUE) %>%
         hc_colors(c('#90ed7d', '#cccccc', '#ff3333')) %>%
-        hc_legend(enabled=FALSE)
+        hc_legend(enabled = FALSE)
      
     } else {
      
@@ -878,9 +885,9 @@ shinyServer(function(input, output, session) {
                       data = footy_tab[, .N, keyby = 'FTR'][
                         c('H','D','A'),][
                          , N/sum(N)*100],
-                      colorByPoint=TRUE) %>%
+                      colorByPoint = TRUE) %>%
         hc_colors(c('#90ed7d', '#cccccc', '#ff3333')) %>%
-        hc_legend(enabled=FALSE) %>%
+        hc_legend(enabled = FALSE) %>%
         hc_tooltip(pointFormat = '<span style="color:{series.color}">
                                   {series.name}</span>:{point.y:.2f}%')
      
@@ -897,7 +904,7 @@ shinyServer(function(input, output, session) {
     validate(need('HTR' %in% names(footy_tab),
                   'Half Time Results are not Available \nfor this league'))
     
-    if(input$results_percent == 'Absolute') {
+    if (input$results_percent == 'Absolute') {
     
      highchart() %>%
       hc_title(text = 'Half Time Wins and Draws') %>%
@@ -905,10 +912,10 @@ shinyServer(function(input, output, session) {
       hc_xAxis(categories = c('Home Wins', 'Draws', 'Away Wins')) %>%
       hc_add_series(name = 'Value', 
                     type = 'column', 
-                    data = footy_tab[, .N, keyby='HTR'][c('H','D','A'),][,N], 
+                    data = footy_tab[, .N, keyby = 'HTR'][c('H','D','A'),][,N], 
                     colorByPoint = TRUE) %>%
       hc_colors(c('#90ed7d', '#cccccc', '#ff3333')) %>%
-      hc_legend(enabled=FALSE)
+      hc_legend(enabled = FALSE)
      
     } else {
      
@@ -924,10 +931,10 @@ shinyServer(function(input, output, session) {
                       type = 'column', 
                       data = footy_tab[, .N, keyby = 'HTR'][
                         c('H','D','A'),][
-                          , N/sum(N)*100], 
+                          , N / sum(N) * 100], 
                       colorByPoint=TRUE) %>%
         hc_colors(c('#90ed7d', '#cccccc', '#ff3333')) %>%
-        hc_legend(enabled=FALSE) %>%
+        hc_legend(enabled = FALSE) %>%
         hc_tooltip(pointFormat = '<span style="color:{series.color}">
                                   {series.name}</span>:{point.y:.2f}%')
     }
@@ -944,16 +951,16 @@ shinyServer(function(input, output, session) {
     HA <- switch(input$ou_ha, Home = 'HomeTeam', Away = 'AwayTeam', All = 'All')
     FTHT <- switch(input$ou_FTHT, `Full Time` = 'FT', `Half Time` = 'HT')
     
-    if(FTHT == 'HT') {
+    if (FTHT == 'HT') {
      validate(need('HTHG' %in% names(footy_tab), 
                    'Half Time Goals are not Available \nfor this league'))
     }
     
     #account for home team and away team
-    if(HA %in% c('HomeTeam', 'AwayTeam')) {
+    if (HA %in% c('HomeTeam', 'AwayTeam')) {
      
      #account for FT and half time
-      if(FTHT == 'FT'){
+      if (FTHT == 'FT'){
        
         footy_tab[, total_goals := FTHG+FTAG]
         footy_tab[,`Over/Under 0.5` := ifelse(total_goals < 0.5, 
@@ -1011,17 +1018,17 @@ shinyServer(function(input, output, session) {
         
       }
      
-      footy_result <- footy_tab[, .N, by=c(HA, input$OU)]
+      footy_result <- footy_tab[, .N, by = c(HA, input$OU)]
       footy_result_dcast <- dcast(footy_result, 
                                   as.formula(paste0(HA, '~ `', input$OU, '`')),
-                                  value.var='N')
+                                  value.var = 'N')
       setnames(footy_result_dcast, HA, 'Team')
       footy_result_dcast <- na_converter(footy_result_dcast)
       footy_all_result <- footy_result_dcast
       
     }else{
      
-      if(FTHT == 'FT'){
+      if (FTHT == 'FT'){
        
         footy_tab[, total_goals := FTHG + FTAG]
         footy_tab[,`Over/Under 0.5` := ifelse(total_goals < 0.5, 
@@ -1051,7 +1058,7 @@ shinyServer(function(input, output, session) {
         
       } else if (FTHT == 'HT') {
        
-        footy_tab[, total_goals := FTHG+FTAG]
+        footy_tab[, total_goals := FTHG + FTAG]
         footy_tab[,`Over/Under 0.5` := ifelse(total_goals < 0.5, 
                                               'Under 0.5', 
                                               'Over 0.5')][,
@@ -1100,7 +1107,7 @@ shinyServer(function(input, output, session) {
       #all
       footy_all_result        <- rbindlist(list(footy_home_result_dcast, 
                                                 footy_away_result_dcast), 
-                                           use.names=TRUE)
+                                           use.names = TRUE)
       footy_all_result        <- footy_all_result[, lapply(.SD, sum), 
                                                   by = 'Team']
     }
@@ -1116,14 +1123,14 @@ shinyServer(function(input, output, session) {
                     type = 'column', 
                     data = unname(unlist(footy_all_result[, 
                                                           Over , 
-                                                          with=FALSE]))) %>%
+                                                          with = FALSE]))) %>%
       hc_add_series(name = Under, 
                     type = 'column', 
                     data = unname(unlist(footy_all_result[, 
                                                           Under, 
-                                                          with=FALSE]))) %>%
+                                                          with = FALSE]))) %>%
       hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
-      hc_tooltip(shared=TRUE, crosshairs=TRUE)
+      hc_tooltip(shared = TRUE, crosshairs = TRUE)
       
     
   })
@@ -1152,7 +1159,7 @@ shinyServer(function(input, output, session) {
                                      'AwayTeam', 
                                      'FTHG',
                                      'FTAG'), 
-                                   with=FALSE]  
+                                   with = FALSE]  
     } else {
       team_individual <- footy_tab[HomeTeam == input$OU_team | 
                                      AwayTeam == input$OU_team, 
@@ -1161,7 +1168,7 @@ shinyServer(function(input, output, session) {
                                      'AwayTeam', 
                                      'HTHG',
                                      'HTAG'), 
-                                   with=FALSE]  
+                                   with = FALSE]  
     }
     
     if (FTHT == 'FT') {
@@ -1207,7 +1214,7 @@ shinyServer(function(input, output, session) {
     if (input$OU_overtime_HA == 'Home') {
       team_individual_m2 <- 
         team_individual_m2[variable == 'HomeTeam', 
-                           c('Date', input$OU_overtime), with=FALSE]
+                           c('Date', input$OU_overtime), with = FALSE]
       team_individual_m3 <-
         team_individual_m3[variable == 'AwayTeam', list(Date, value)]
     }
@@ -1215,7 +1222,7 @@ shinyServer(function(input, output, session) {
     if (input$OU_overtime_HA == 'Away') {
       team_individual_m2 <- 
         team_individual_m2[variable == 'AwayTeam', 
-                           c('Date', input$OU_overtime), with=FALSE]
+                           c('Date', input$OU_overtime), with = FALSE]
       team_individual_m3 <-
         team_individual_m3[variable == 'HomeTeam', list(Date, value)]
     }
@@ -1243,7 +1250,7 @@ shinyServer(function(input, output, session) {
                min = 0.5,
                max = 2.5,
                startOnTick = FALSE,
-               labels         = list(enabled=FALSE, useHTML=TRUE),
+               labels = list(enabled = FALSE, useHTML = TRUE),
                plotBands = list(
                  list(from = 0.5, 
                       to = 1.5, 
@@ -1256,17 +1263,17 @@ shinyServer(function(input, output, session) {
                       color = "#b3e0ff", 
                       label = list(text = over , 
                                    y = -50, 
-                                   style = list(`font-size`='20px'))))) %>% 
+                                   style = list(`font-size` = '20px'))))) %>% 
       hc_xAxis(categories = paste(team_individual_m3$value, 
                                   format(team_individual_m3$Date, '%d/%m'), 
-                                  sep=' ')) %>%
+                                  sep = ' ')) %>%
       hc_add_series(name  = 'Result', 
-                    color="#666666", 
+                    color = "#666666", 
                     type = 'spline', 
                     data = as.numeric(factor(team_individual_m2[[input$OU_overtime]],
-                                             levels=c(under, over)))) %>%
-      hc_tooltip(crosshairs = TRUE, useHTML=TRUE, formatter = jav_func) %>%
-      hc_legend(enabled=FALSE)
+                                             levels = c(under, over)))) %>%
+      hc_tooltip(crosshairs = TRUE, useHTML = TRUE, formatter = jav_func) %>%
+      hc_legend(enabled = FALSE)
   
   })
   
@@ -1327,9 +1334,9 @@ shinyServer(function(input, output, session) {
     
     #full time - half time
     if (FTHT == 'FT') {
-      footy_tab[, total_goals := FTHG+FTAG]
+      footy_tab[, total_goals := FTHG + FTAG]
     } else {
-      footy_tab[, total_goals := HTHG+HTAG]
+      footy_tab[, total_goals := HTHG + HTAG]
     }
     
     footy_tab[, `Over/Under 1.5` := ifelse(total_goals < 1.5,
@@ -1347,7 +1354,7 @@ shinyServer(function(input, output, session) {
       hc_add_series(name = 'Matches', 
                     type = 'column', 
                     data = mytab[, N], 
-                    colorByPoint=TRUE) %>%
+                    colorByPoint = TRUE) %>%
       hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
@@ -1388,7 +1395,7 @@ shinyServer(function(input, output, session) {
       hc_add_series(name = 'Matches', 
                     type = 'column', 
                     data = mytab[, N], 
-                    colorByPoint=TRUE) %>%
+                    colorByPoint = TRUE) %>%
       hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
@@ -1428,7 +1435,7 @@ shinyServer(function(input, output, session) {
       hc_add_series(name = 'Matches', 
                     type = 'column', 
                     data = mytab[, N], 
-                    colorByPoint=TRUE) %>%
+                    colorByPoint = TRUE) %>%
       hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
@@ -1468,7 +1475,7 @@ shinyServer(function(input, output, session) {
       hc_add_series(name = 'Matches', 
                     type = 'column', 
                     data = mytab[, N], 
-                    colorByPoint=TRUE) %>%
+                    colorByPoint = TRUE) %>%
       hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
@@ -1584,7 +1591,7 @@ shinyServer(function(input, output, session) {
       hc_add_series(name = 'Matches', 
                     type = 'column', 
                     data = mytab[, N], 
-                    colorByPoint=TRUE) %>%
+                    colorByPoint = TRUE) %>%
       hc_colors(c(hc_get_colors()[1], '#ff9999')) %>%
       hc_legend(enabled = FALSE)
     
@@ -1646,7 +1653,7 @@ shinyServer(function(input, output, session) {
             opposite = TRUE
           )
         ) %>%
-        hc_add_series(name  = 'Yellow Cards', 
+        hc_add_series(name = 'Yellow Cards', 
                       type = 'column', 
                       data = footy_all_cards[, `Yellow Cards`]) %>%
         hc_add_series(name = 'Red Cards', 
@@ -1685,9 +1692,9 @@ shinyServer(function(input, output, session) {
                       type = 'spline', 
                       data = footy_all_cards[, Fouls] /
                        footy_all_cards[, `No of Games`], 
-                      yAxis=1)   %>%
+                      yAxis = 1)   %>%
         hc_colors(c('#cccc00', '#cc0000', '#404040')) %>%
-        hc_tooltip(crosshairs = TRUE, shared=TRUE)
+        hc_tooltip(crosshairs = TRUE, shared = TRUE)
       }
     
   })
@@ -1695,7 +1702,7 @@ shinyServer(function(input, output, session) {
   #cards over time per team-----------------------------------------------------
   output$cards_over_time <- renderHighchart({
     
-    footy_tab          <- values$data
+    footy_tab <- values$data
     
     #validate that HY is in the names
     validate(need('HY' %in% names(footy_tab), 
@@ -1758,7 +1765,7 @@ shinyServer(function(input, output, session) {
       hc_title(text = paste("Cards / Fouls -", input$cards_team)) %>%
       hc_xAxis(list(categories = paste(team_individual_m3$value, 
                                        format(team_individual_m3$Date, '%d/%m'),
-                                       sep=' '))) %>%
+                                       sep = ' '))) %>%
       hc_yAxis(
         list(
           title = list(text = "Cards"),
@@ -1778,8 +1785,8 @@ shinyServer(function(input, output, session) {
                     data = team_individual_m2[, `Red Cards`]) %>%
       hc_add_series(name = 'Fouls',
                     type = 'spline', 
-                    data=team_individual_m2[, Fouls],
-                    yAxis=1) %>%
+                    data = team_individual_m2[, Fouls],
+                    yAxis = 1) %>%
       hc_colors(c('#cccc00', '#cc0000', '#404040')) %>%
       hc_tooltip(crosshairs = TRUE, shared = TRUE)
     
@@ -1940,7 +1947,7 @@ shinyServer(function(input, output, session) {
         footy_all_result <- rbindlist(list(footy_home_result_dcast, 
                                            footy_away_result_dcast), 
                                       use.names=TRUE)
-        footy_all_result <- footy_all_result[, lapply(.SD, sum), by='Team']
+        footy_all_result <- footy_all_result[, lapply(.SD, sum), by = 'Team']
       }
       
       #get over and under names
@@ -1990,8 +1997,8 @@ shinyServer(function(input, output, session) {
         setnames(footy_away_result, 'AwayTeam', 'Team')  
         
         footy_result <- rbindlist(list(footy_home_result, 
-                                       footy_away_result), use.names=TRUE)
-        footy_result <- footy_result[, lapply(.SD, sum), by='Team']
+                                       footy_away_result), use.names = TRUE)
+        footy_result <- footy_result[, lapply(.SD, sum), by = 'Team']
       }
       
       if(input$abso_OU == 'Total') {
@@ -2015,7 +2022,7 @@ shinyServer(function(input, output, session) {
                                        footy_result[, `No of Games`], 
                                      2) ) %>%
           hc_legend(enabled = FALSE) %>%
-          hc_tooltip(shared=TRUE, crosshairs=TRUE)
+          hc_tooltip(shared = TRUE, crosshairs = TRUE)
       }
       
     }
@@ -2138,7 +2145,7 @@ shinyServer(function(input, output, session) {
     
     #validate for HC
     validate(need('HC' %in% names(footy_tab), ''))
-    footy_tab[, total_corners := HC+AC]
+    footy_tab[, total_corners := HC + AC]
     
     footy_tab[, `Corners O/U 10.5` := ifelse(total_corners < 10.5, 
                                              'Under 10.5', 
@@ -2167,7 +2174,7 @@ shinyServer(function(input, output, session) {
     
     #validate for HC
     validate(need('HC' %in% names(footy_tab), ''))
-    footy_tab[, total_corners := HC+AC]
+    footy_tab[, total_corners := HC + AC]
     
     footy_tab[, `Corners O/U 13.5` := ifelse(total_corners < 13.5, 
                                              'Under 13.5', 
