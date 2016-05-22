@@ -1,5 +1,5 @@
 # FootballeR
-This is a web-based interactive dashboard about European Football. It is an application designed for punders / researchers or simply football enthusiasts who are bored of the static and difficult to view and understand tables that most of the companies offer. This free (and ad-free) application offers you interactive and customisable graphs and tables in order for you to find exactly what you are looking for in an easy and nice way through charts. The application contains data from 11 countries:
+This is a web-based interactive dashboard about European Football. It is an application designed for punders, researchers or simply football enthusiasts who want something more than the static and difficult to understand tables that most of the companies offer. This free (and ad-free) application offers you interactive and customisable graphs and tables in order for you to find exactly what you are looking for in an easy and nice way through charts. The application contains data from 11 countries:
 
 - England
 - Scotland
@@ -24,6 +24,17 @@ To start using the application visit the following link in shinyapps:
 and click the "Application" button at the top of the front page to begin!
 
 ![screenshot]()
+
+**Or if you are an R user you can easily type:**
+
+`runGitHub('FootballeR', 'LyzandeR', subidr = 'app')`
+
+You would also need the following up-to-date packages to be installed on your machine:
+
+- data.table
+- shiny
+- DT
+- highcharter
 
 # Details
 
