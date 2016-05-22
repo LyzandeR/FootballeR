@@ -25,7 +25,7 @@ and click the "Application" button at the top of the front page to begin!
 
 ![screenshot]()
 
-**Or if you are an R user you can easily type:**
+**Or if you are an R user you can easily type on your console:**
 
 `runGitHub('FootballeR', 'LyzandeR', subidr = 'app')`
 
@@ -82,7 +82,7 @@ This tab shows information about the results of each of the teams (Wins - Draws 
 The first from the top graph shows the aggregated Wins, Draws and Losses of each of the teams. You can select between:
 
 - Home/Away/All
-- **Half Time and Full Time**
+- Half Time and Full Time
 
 The second graph shows the individual results of each of the teams. The games are in order as played i.e. the first game on the left is the oldest and the last game on the right is the most recent. You can select:
 
@@ -153,11 +153,17 @@ The rest of the graphs show total league information for Corner Over/Under combi
 
 # Data
 
-All the data are provided from and owned by the amazing and free data base of European Football at [football-data.co.uk]. If you haven't already you can visit their site for betting information, live scores, historical data and much more!
+All the data are provided from and owned by the amazing and free data base of European Football at [football-data.co.uk]. If you haven't already you can visit their site for betting information, live scores, historical data (including betting data) and much more!
 
 By using this application you agree to the terms and conditions of using their data. You can visit the corresponding part of their [website] for more information. 
 
 football-data.co.uk and the developer cannot be held responsible for any mistakes in the data and offer no guarantee that the data is correct. If you do find any mistakes though, you are adviced to email football-data.co.uk so that the data can be corrected.
+
+Football-Data maintains full copyright over the data files.
+
+#### Data Updates
+
+The application connects to football-data.co.uk so it implements data updates as soon as they occur at football-data.co.uk .
 
 # Charts
 
