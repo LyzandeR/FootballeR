@@ -30,7 +30,9 @@ shinyUI(navbarPage(title='FootballeR', fluid = FALSE, collapsible = FALSE,
                           br(),
                           div(class='third_line', 'Or'),
                           div(class='third_line', 'Find out more at:'),
-                          a(href="#", id='front_button', class="btn btn-default", role="button",'WIKI')
+                          a(href='#',
+                            onclick='$(function(){$(".container").tabs({ active: 2 });});',
+                            id='front_button', class="btn btn-default", role="button",'WIKI')
                       ),
                       img(class='background', src='football_4-wallpaper-1920x1080_new_cropped.jpg'),
                       div(class="footer", "Developed with ", icon('heart'), " in R and Rstudio. For the latest Development and Licence: ",
