@@ -23,7 +23,7 @@ To start using the application visit the following link in shinyapps:
 
 and click the "Application" button at the top of the front page to begin!
 
-![screenshot]()
+![screenshot](https://github.com/LyzandeR/FootballeR/blob/master/app/www/App_screenshot.png)
 
 **Or if you are an R user you can easily type on your console:**
 
