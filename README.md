@@ -27,7 +27,7 @@ and click the "Application" button at the top of the front page to begin!
 
 **Or if you are an R user you can easily type on your console:**
 
-`runGitHub('FootballeR', 'LyzandeR', subidr = 'app')`
+`shiny::runGitHub('FootballeR', 'LyzandeR', subidr = 'app')`
 
 You would also need the following up-to-date packages to be installed on your machine:
 
