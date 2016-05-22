@@ -19,7 +19,7 @@ since 1993 and up to five divisions depth!
 
 To start using the application visit the following link in shinyapps:
 
-[shinyapps.io] 
+[link will be provided shortly] 
 
 and click the "Application" button at the top of the front page to begin!
 
@@ -202,7 +202,7 @@ SOFTWARE.
 To contact the author please send an email to [teoboot2007@hotmail.com]
 
 
-[shinyapps.io]: <https://www.shinyapps.io/>
+[[link will be provided shortly]]: <#>
 [football-data.co.uk]:   <http://www.football-data.co.uk/data.php>
 [website]: <http://www.football-data.co.uk/disclaimer.php>
 [Highcharts]: <http://www.highcharts.com/>
