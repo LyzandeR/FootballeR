@@ -455,9 +455,80 @@ shinyUI(
           ),    
         width = 9)
       )
+    ),
+    tabPanel('About',
+      
+     fixedRow(        
+       column(
+        img(src = 'stadium-wallpaper-2560x768.jpg', id = 'ribbon-about', height = 230),
+        width = 12
+       )
+     ),
+     br(),
+     
+     fixedRow(
+      
+      column(
+       HTML('<ul class="nav nav-pills nav-justified">
+                 <li class="active">
+                 <a href="#about-tab-1" data-toggle="tab" data-value="Author">Author</a>
+                 </li>
+                 <li>
+                 <a href="#about-tab-2" data-toggle="tab" data-value="Data/Charts">Data / Charts</a>
+                 </li>
+                 <li>
+                 <a href="#about-tab-3" data-toggle="tab" data-value="Contact">Contact</a>
+                 </li>
+              </ul>'),
+       width = 12
+       )
+     ),
+     
+     HTML('<div class="container-fluid">
+              <div class="tab-content">
+                 <div class="tab-pane active" data-value="Author" id="about-tab-1">'),
+                 
+                 br(),
+                 br(),
+                 br(),
+                
+                 column(width = 2),
+                 column(h2('Author\n'), paste(rep(letters, 50), collapse = ' '), width = 8 ),
+                 column(width = 2),
+     
+     HTML('     </div>
+                <div class="tab-pane" data-value="Data/Charts" id="about-tab-2">'),
+                
+                br(),
+                br(),
+                br(),
+                
+                column(width = 2),
+                column(h2('Author\n'), paste(rep(letters, 20), collapse = ' '), width = 8 ),
+                column(width = 2),
+               
+     HTML('     </div>
+                <div class="tab-pane" data-value="Contacts" id="about-tab-3">'),
+                
+                br(),
+                br(),
+                br(),
+                
+                column(width = 2),
+                column(h2('Author\n'), paste(rep(letters, 10), collapse = ' '), width = 8 ),
+                column(width = 2),
+                
+     HTML('     </div>
+              </div>
+           </div>')
     )
   )
 )
+
+
+
+
+
 
 
 
