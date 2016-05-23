@@ -38,21 +38,15 @@ shinyUI(
               br(),
               div(class = 'third_line', 'Or'),
               div(class = 'third_line', 'Find out more at:'),
-              a(href='#',
+              a(href='https://github.com/LyzandeR/FootballeR',
                 id='front_button', 
                 class="btn btn-default", 
                 role="button",
                 'WIKI')
           ),
           img(class = 'background', 
-              src = 'football_4-wallpaper-1920x1080_new_cropped.jpg'),
-          div(class = "footer", 
-              "Developed with ", 
-              icon('heart'),
-              " in R and Rstudio. For the latest Development and Licence: ",
-              a(id="github_icon", 
-                href="https://github.com/LyzandeR/FootballeR", 
-                icon('github')))
+              src = 'football_4-wallpaper-1920x1080_new_cropped.jpg')
+
     ),
      
     #tab Application top of app
@@ -504,7 +498,8 @@ shinyUI(
                 br(),
                 
                 column(width = 2),
-                column(h2('Author\n'), paste(rep(letters, 20), collapse = ' '), width = 8 ),
+                column(h2('Author\n'), 'Theo Boutaris is currently working as a Senior 
+                       Data Scientist. ', width = 8 ),
                 column(width = 2),
                
      HTML('     </div>
@@ -521,7 +516,15 @@ shinyUI(
      HTML('     </div>
               </div>
            </div>')
-    )
+    ),
+    
+    div(class = "footer", 
+        "Developed with ", 
+        icon('heart'),
+        " in R and Rstudio. For the latest Development and Licence: ",
+        a(id="github_icon", 
+          href="https://github.com/LyzandeR/FootballeR", 
+          icon('github')))
   )
 )
 
