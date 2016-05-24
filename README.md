@@ -1,5 +1,5 @@
 # FootballeR
-This is a web-based interactive dashboard about European Football. It is an application designed for punders, researchers or simply football enthusiasts who want something more than the static and difficult to understand tables that most of the companies offer. This free (and ad-free) application offers you interactive and customisable graphs and tables in order for you to find exactly what you are looking for in an easy and nice way through charts. The application contains data from 11 countries:
+This is a web-based interactive dashboard about European Football. It is an application designed for punters, researchers or simply football enthusiasts who want something more than the static and difficult to understand tables that most of the companies offer. This free (and ad-free) application offers you interactive and customisable graphs and tables in order for you to find exactly what you are looking for in an easy and nice way through charts. The application contains data from 11 countries:
 
 - England
 - Scotland

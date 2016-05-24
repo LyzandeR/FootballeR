@@ -454,7 +454,7 @@ shinyUI(
       
      fixedRow(        
        column(
-        img(src = 'stadium-wallpaper-2560x768.jpg', id = 'ribbon-about', height = 230),
+        img(src = 'stadium-pic.jpg', id = 'ribbon-about', height = 230),
         width = 12
        )
      ),
@@ -487,7 +487,19 @@ shinyUI(
                  br(),
                 
                  column(width = 2),
-                 column(h2('Author\n'), paste(rep(letters, 50), collapse = ' '), width = 8 ),
+                 column(h2('Author'), div(id = 'about', 
+                        HTML('Theo Boutaris is currently working as a Senior 
+                        Data Scientist using primarily R as his main programming language. He holds a Bachelor\'s 
+                        degree in Finance and a Master\'s degree in Finance, Investments and
+                        Risk Management.<br> <br>By combining his love for statistics with
+                        his passion about football, he has constructed multiple models to predict
+                        football results. Drawing all his information and data from the vast football
+                        and programming communities he decided it was time to give something back!<br><br>
+                        FootballeR is a free tool designed for punters, researchers or simply
+                        football enthusiasts who require something more than the traditional static
+                        tables offered in most websites. <br><br>Theo currently lives in London and
+                        he remains a proud supporter of Aris Salonica and Crystal Palace!')),
+                        width = 8),
                  column(width = 2),
      
      HTML('     </div>
@@ -498,8 +510,19 @@ shinyUI(
                 br(),
                 
                 column(width = 2),
-                column(h2('Author\n'), 'Theo Boutaris is currently working as a Senior 
-                       Data Scientist. ', width = 8 ),
+                column(h2('Data'), 
+                       div(id = 'about', 'The data in this application comes from and is owned by', 
+                       a(id = 'footy', 'football-data.co.uk', 
+                         href = 'http://www.football-data.co.uk/data'),
+                       ' a free football and betting database. 
+                         Football-data offers many more services than just data. 
+                         Feel free to pay them a visit!'),
+                       br(),
+                       h2('Graphs'),
+                       div(id = 'about', 'The graphs in this application come from the',
+                       a(id = 'HC', 'Highcharts', href = 'http://www.highcharts.com'),
+                       ' JavaScript graphics library. Visit their website for more information!'),
+                       width = 8),
                 column(width = 2),
                
      HTML('     </div>
@@ -510,7 +533,19 @@ shinyUI(
                 br(),
                 
                 column(width = 2),
-                column(h2('Author\n'), paste(rep(letters, 10), collapse = ' '), width = 8 ),
+                column(h2('Contact'), 
+                       div(id = 'about', 'If you would like to contact the author about the application feel
+                           free to drop him an email at:',
+                       a(id = 'email', 'teoboot2007@hotmail.com', 
+                         href = 'mailto:teoboot2007@hotmail.com')),
+                       br(),
+                       h2('Issues'),
+                       div(id = 'about', 'If you found an issue or bug with the 
+                       application please do post it as such
+                       on the development page, under the ', 
+                       a(id = 'HC', 'issues tab', href = 'https://github.com/LyzandeR/FootballeR/issues'),
+                       'in order to have a look.'),
+                       width = 8 ),
                 column(width = 2),
                 
      HTML('     </div>
