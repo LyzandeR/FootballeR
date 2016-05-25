@@ -968,57 +968,57 @@ shinyServer(function(input, output, session) {
      #account for FT and half time
       if (FTHT == 'FT'){
        
-        footy_tab[, total_goals := FTHG+FTAG]
-        footy_tab[,`Over/Under 0.5` := ifelse(total_goals < 0.5, 
+        footy_tab[, total_goals := FTHG + FTAG]
+        footy_tab[,`O/U 0.5` := ifelse(total_goals < 0.5, 
                                               'Under 0.5', 
                                               'Over 0.5')][,
-                   `Over/Under 1.5` := ifelse(total_goals < 1.5, 
+                   `O/U 1.5` := ifelse(total_goals < 1.5, 
                                               'Under 1.5', 
                                               'Over 1.5')][,
-                   `Over/Under 2.5` := ifelse(total_goals < 2.5,
+                   `O/U 2.5` := ifelse(total_goals < 2.5,
                                               'Under 2.5',
                                               'Over 2.5')][,
-                   `Over/Under 3.5` := ifelse(total_goals < 3.5, 
+                   `O/U 3.5` := ifelse(total_goals < 3.5, 
                                               'Under 3.5', 
                                               'Over 3.5')][,
-                   `Over/Under 4.5` := ifelse(total_goals < 4.5, 
+                   `O/U 4.5` := ifelse(total_goals < 4.5, 
                                               'Under 4.5', 
                                               'Over 4.5')][,
-                   `Over/Under 5.5` := ifelse(total_goals < 5.5, 
+                   `O/U 5.5` := ifelse(total_goals < 5.5, 
                                               'Under 5.5', 
                                               'Over 5.5')][,
-                   `Over/Under 6.5` := ifelse(total_goals < 6.5, 
+                   `O/U 6.5` := ifelse(total_goals < 6.5, 
                                               'Under 6.5', 
                                               'Over 6.5')][,
-                   `Over/Under 7.5` := ifelse(total_goals < 7.5, 
+                   `O/U 7.5` := ifelse(total_goals < 7.5, 
                                               'Under 7.5', 
                                               'Over 7.5')]
         
       } else if (FTHT == 'HT') {
        
-        footy_tab[, total_goals := HTHG+HTAG]
-        footy_tab[, `Over/Under 0.5` := ifelse(total_goals < 0.5, 
+        footy_tab[, total_goals := HTHG + HTAG]
+        footy_tab[, `O/U 0.5` := ifelse(total_goals < 0.5, 
                                                'Under 0.5', 
                                                'Over 0.5')][,
-                    `Over/Under 1.5` := ifelse(total_goals < 1.5, 
+                    `O/U 1.5` := ifelse(total_goals < 1.5, 
                                                'Under 1.5', 
                                                'Over 1.5')][,
-                    `Over/Under 2.5` := ifelse(total_goals < 2.5, 
+                    `O/U 2.5` := ifelse(total_goals < 2.5, 
                                                'Under 2.5', 
                                                'Over 2.5')][,
-                    `Over/Under 3.5` := ifelse(total_goals < 3.5, 
+                    `O/U 3.5` := ifelse(total_goals < 3.5, 
                                                'Under 3.5', 
                                                'Over 3.5')][,
-                    `Over/Under 4.5` := ifelse(total_goals < 4.5, 
+                    `O/U 4.5` := ifelse(total_goals < 4.5, 
                                                'Under 4.5', 
                                                'Over 4.5')][,
-                    `Over/Under 5.5` := ifelse(total_goals < 5.5, 
+                    `O/U 5.5` := ifelse(total_goals < 5.5, 
                                                'Under 5.5', 
                                                'Over 5.5')][,
-                    `Over/Under 6.5` := ifelse(total_goals < 6.5, 
+                    `O/U 6.5` := ifelse(total_goals < 6.5, 
                                                'Under 6.5', 
                                                'Over 6.5')][,
-                    `Over/Under 7.5` := ifelse(total_goals < 7.5, 
+                    `O/U 7.5` := ifelse(total_goals < 7.5, 
                                                'Under 7.5', 
                                                'Over 7.5')]
         
@@ -1037,56 +1037,56 @@ shinyServer(function(input, output, session) {
       if (FTHT == 'FT'){
        
         footy_tab[, total_goals := FTHG + FTAG]
-        footy_tab[,`Over/Under 0.5` := ifelse(total_goals < 0.5, 
+        footy_tab[,`O/U 0.5` := ifelse(total_goals < 0.5, 
                                               'Under 0.5', 
                                               'Over 0.5')][,
-                   `Over/Under 1.5` := ifelse(total_goals < 1.5, 
+                   `O/U 1.5` := ifelse(total_goals < 1.5, 
                                               'Under 1.5', 
                                               'Over 1.5')][,
-                   `Over/Under 2.5` := ifelse(total_goals < 2.5, 
+                   `O/U 2.5` := ifelse(total_goals < 2.5, 
                                               'Under 2.5', 
                                               'Over 2.5')][,
-                   `Over/Under 3.5` := ifelse(total_goals < 3.5, 
+                   `O/U 3.5` := ifelse(total_goals < 3.5, 
                                               'Under 3.5', 
                                               'Over 3.5')][,
-                   `Over/Under 4.5` := ifelse(total_goals < 4.5, 
+                   `O/U 4.5` := ifelse(total_goals < 4.5, 
                                               'Under 4.5', 
                                               'Over 4.5')][,
-                   `Over/Under 5.5` := ifelse(total_goals < 5.5, 
+                   `O/U 5.5` := ifelse(total_goals < 5.5, 
                                               'Under 5.5', 
                                               'Over 5.5')][,
-                   `Over/Under 6.5` := ifelse(total_goals < 6.5, 
+                   `O/U 6.5` := ifelse(total_goals < 6.5, 
                                               'Under 6.5', 
                                               'Over 6.5')][,
-                   `Over/Under 7.5` := ifelse(total_goals < 7.5, 
+                   `O/U 7.5` := ifelse(total_goals < 7.5, 
                                               'Under 7.5', 
                                               'Over 7.5')]
         
       } else if (FTHT == 'HT') {
        
         footy_tab[, total_goals := FTHG + FTAG]
-        footy_tab[,`Over/Under 0.5` := ifelse(total_goals < 0.5, 
+        footy_tab[,`O/U 0.5` := ifelse(total_goals < 0.5, 
                                               'Under 0.5', 
                                               'Over 0.5')][,
-                   `Over/Under 1.5` := ifelse(total_goals < 1.5, 
+                   `O/U 1.5` := ifelse(total_goals < 1.5, 
                                               'Under 1.5', 
                                               'Over 1.5')][,
-                   `Over/Under 2.5` := ifelse(total_goals < 2.5, 
+                   `O/U 2.5` := ifelse(total_goals < 2.5, 
                                               'Under 2.5', 
                                               'Over 2.5')][,
-                   `Over/Under 3.5` := ifelse(total_goals < 3.5, 
+                   `O/U 3.5` := ifelse(total_goals < 3.5, 
                                               'Under 3.5', 
                                               'Over 3.5')][,
-                   `Over/Under 4.5` := ifelse(total_goals < 4.5, 
+                   `O/U 4.5` := ifelse(total_goals < 4.5, 
                                               'Under 4.5', 
                                               'Over 4.5')][,
-                   `Over/Under 5.5` := ifelse(total_goals < 5.5, 
+                   `O/U 5.5` := ifelse(total_goals < 5.5, 
                                               'Under 5.5', 
                                               'Over 5.5')][,
-                   `Over/Under 6.5` := ifelse(total_goals < 6.5, 
+                   `O/U 6.5` := ifelse(total_goals < 6.5, 
                                               'Under 6.5', 
                                               'Over 6.5')][,
-                   `Over/Under 7.5` := ifelse(total_goals < 7.5, 
+                   `O/U 7.5` := ifelse(total_goals < 7.5, 
                                               'Under 7.5', 
                                               'Over 7.5')]
         
@@ -1111,11 +1111,9 @@ shinyServer(function(input, output, session) {
       footy_away_result_dcast <- na_converter(footy_away_result_dcast)
       
       #all
-      footy_all_result        <- rbindlist(list(footy_home_result_dcast, 
-                                                footy_away_result_dcast), 
-                                           use.names = TRUE)
-      footy_all_result        <- footy_all_result[, lapply(.SD, sum), 
-                                                  by = 'Team']
+      footy_all_result <- rbindlist(list(footy_home_result_dcast, footy_away_result_dcast), 
+                                    use.names = TRUE)
+      footy_all_result <- footy_all_result[, lapply(.SD, sum), by = 'Team']
     }
     
     #get over and under names
@@ -1192,28 +1190,28 @@ shinyServer(function(input, output, session) {
     team_individual_m2 <- team_individual_m[value == input$OU_team, ]
     setorder(team_individual_m2, Date)
     
-    team_individual_m2[,`Over/Under 0.5` := ifelse(total_goals < 0.5, 
+    team_individual_m2[,`O/U 0.5` := ifelse(total_goals < 0.5, 
                                                    'Under 0.5', 
                                                    'Over 0.5')][,
-                        `Over/Under 1.5` := ifelse(total_goals < 1.5, 
+                        `O/U 1.5` := ifelse(total_goals < 1.5, 
                                                    'Under 1.5', 
                                                    'Over 1.5')][,
-                        `Over/Under 2.5` := ifelse(total_goals < 2.5, 
+                        `O/U 2.5` := ifelse(total_goals < 2.5, 
                                                    'Under 2.5', 
                                                    'Over 2.5')][,
-                        `Over/Under 3.5` := ifelse(total_goals < 3.5, 
+                        `O/U 3.5` := ifelse(total_goals < 3.5, 
                                                    'Under 3.5', 
                                                    'Over 3.5')][,
-                        `Over/Under 4.5` := ifelse(total_goals < 4.5, 
+                        `O/U 4.5` := ifelse(total_goals < 4.5, 
                                                    'Under 4.5', 
                                                    'Over 4.5')][,
-                        `Over/Under 5.5` := ifelse(total_goals < 5.5, 
+                        `O/U 5.5` := ifelse(total_goals < 5.5, 
                                                    'Under 5.5', 
                                                    'Over 5.5')][,
-                        `Over/Under 6.5` := ifelse(total_goals < 6.5, 
+                        `O/U 6.5` := ifelse(total_goals < 6.5, 
                                                    'Under 6.5', 
                                                    'Over 6.5')][,
-                        `Over/Under 7.5` := ifelse(total_goals < 7.5, 
+                        `O/U 7.5` := ifelse(total_goals < 7.5, 
                                                    'Under 7.5', 
                                                    'Over 7.5')]
     
@@ -1820,7 +1818,7 @@ shinyServer(function(input, output, session) {
                       by = 'Referee']
     setorder(refs, -`Yellow Cards`)
     
-    if (input$abso_ave == 'Absolute') {
+    if (input$abso_ave == 'Total') {
      #plot
       highchart() %>%
         hc_title(text = 'Referees') %>%
@@ -1885,7 +1883,7 @@ shinyServer(function(input, output, session) {
       hc_xAxis(categories = all_cards[, rn] ) %>%
       hc_add_series(name = 'Value', 
                     type = 'column', 
-                    data = if(input$abso_ave == 'Absolute') {
+                    data = if(input$abso_ave == 'Total') {
                              all_cards[, V1]
                            } else {
                              all_cards[, V2]
@@ -1917,20 +1915,20 @@ shinyServer(function(input, output, session) {
                      Away = 'AwayTeam', 
                      All = 'All')
       footy_tab[, total_corners := HC + AC]
-      footy_tab[,`Corners O/U  5.5` := ifelse(total_corners < 5.5, 
+      footy_tab[,`O/U 5.5` := ifelse(total_corners < 5.5, 
                                               'Under  5.5', 
                                               'Over  5.5')][,
-                 `Corners O/U  8.5` := ifelse(total_corners < 8.5, 
+                 `O/U 8.5` := ifelse(total_corners < 8.5, 
                                               'Under  8.5', 
                                               'Over  8.5')][,
-                 `Corners O/U 10.5` := ifelse(total_corners < 10.5, 
+                 `O/U 10.5` := ifelse(total_corners < 10.5, 
                                               'Under 10.5', 
                                               'Over 10.5')][,
-                 `Corners O/U 13.5` := ifelse(total_corners < 13.5, 
+                 `O/U 13.5` := ifelse(total_corners < 13.5, 
                                               'Under 13.5', 
                                               'Over 13.5')]
       if (HA %in% c('HomeTeam', 'AwayTeam')) {
-        footy_result       <- footy_tab[, .N, by=c(HA, input$cornerOU)]
+        footy_result <- footy_tab[, .N, by = c(HA, input$cornerOU)]
         footy_result_dcast <- dcast(footy_result, 
                                     as.formula(paste0(HA, 
                                                       '~ `', 
@@ -1978,12 +1976,12 @@ shinyServer(function(input, output, session) {
                       type = 'column', 
                       data = unname(unlist(footy_all_result[, 
                                                             Over , 
-                                                            with=FALSE]))) %>%
+                                                            with = FALSE]))) %>%
         hc_add_series(name = Under, 
                       type = 'column', 
                       data = unname(unlist(footy_all_result[, 
                                                             Under, 
-                                                            with=FALSE]))) %>%
+                                                            with = FALSE]))) %>%
         hc_legend(enabled = FALSE) %>%
         hc_tooltip(shared = TRUE, crosshairs = TRUE)
     } else {

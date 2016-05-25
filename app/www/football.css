@@ -1,89 +1,78 @@
-html
-   {
-  position:relative; 
+html {
+  position: relative; 
   min-height: 100%;
-  padding:0;
-  margin:0;
-   }
+  padding: 0;
+  margin: 0;
+}
 
 /*Normalize html and body elements,this style is just good to have*/
-body
-   {
+body {
   width: 100%;
   margin: 0 0 100px;
   min-height: 100%;
-   }
+}
 
-.container
-   {
-  margin-bottom:50px;/* Height of footer*/
-  width:1400px;
+.container {
+  /*height of footer below line*/
+  margin-bottom: 50px; 
+  width: 1400px;
   min-height: 100%;
   height: 100%;
-   }
-
-/*
-.well
-   {
-  position:fixed;
-  width:400px
-   }
-*/
+}
  
-.footer
-   {
+.footer {
   position: absolute;
   bottom: 0;
   left: 0;
-  height:50px;
+  height: 50px;
   width: 100%;
-  background:#f2f2f2;
-  min-height:50px;
-  min-width:1750px;
+  background: #f2f2f2;
+  min-height: 50px;
+  min-width: 1450px;
   z-index: 2;
   text-align: center;
   padding-top: 15px;
-   }
+}
 
-/* apparently there is a bug at Rstudio or Bootstrap3 which causes 'row class div' to have margin and padding which creates a horizontal scrollbar*/
-/* https://github.com/twbs/bootstrap/issues/10711 */
-.row 
-   { 
-   margin: 0; padding: 0 
-   }
+/* apparently there is a bug at Rstudio or Bootstrap3 which causes 
+   'row class div' to have margin and padding which creates a horizontal scrollbar
+   https://github.com/twbs/bootstrap/issues/10711 */
+.row { 
+  margin: 0; padding: 0 
+}
 
-.icon
-    {
-    position: relative;
-    top: 20px; 
-    width:100%;
-    height:330px;
-    border-radius:50%;
-    font-size:30px;
-    text-align:center;
-    vertical-align:middle;
-    padding-top:25%;
-    line-height:370px;
-    color:#fff; 
-    background:#f7a35c;
-    }
+.icon {
+  position: relative;
+  top: 20px; 
+  width: 100%;
+  height: 330px;
+  border-radius: 50%;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 25%;
+  line-height: 370px;
+  color: #fff; 
+  background: #f7a35c;
+}
 
 
 #parent {
-    width: 1170px;
+  width: 1000px;
 }
 
 .image {
-    float: left;
-    width: 320px;
+  float: left;
+  width: 270px;
 }
 
 .custom_slider {
-    float: right;
-    width: 170px;
+  margin-left: 35px;
+  float: left;
+  width: 140px;
 }
 
-/*
+/* In case I want to format tables differently
 table tr:nth-child(odd){
   background-color: #e6faff;
 }
@@ -99,100 +88,101 @@ table tr:nth-child(2){
   border-bottom: 2px solid black;
 }
 */
-table tr:nth-child(n+3):hover{
-    background-color: #7cb5ec;
+
+table tr:nth-child(n+3):hover {
+  background-color: #7cb5ec;
 }
 
 
 table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    overflow: hidden;
-    z-index: 1;
+  border-spacing: 0;
+  border-collapse: collapse;
+  overflow: hidden;
+  z-index: 1;
 }
 
 td, th {
-    cursor: pointer;
-    padding: 10px;
-    position: relative;
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
 }
 
 td:hover::after { 
-    background-color: #7cb5ec;
-    content: '\00a0';  
-    height: 10000px;    
-    left: 0;
-    position: absolute;  
-    top: -5000px;
-    width: 100%;
-    z-index: -1;        
+  background-color: #7cb5ec;
+  content: '\00a0';  
+  height: 10000px;    
+  left: 0;
+  position: absolute;  
+  top: -5000px;
+  width: 100%;
+  z-index: -1;        
 }
 
-.navbar{
+.navbar {
   height: 30px;
   padding-left: 40px;
-  min-width: 1750px;
+  min-width: 1450px;
 }
 
 .bg {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 .first_line {
-    padding-top: 150px;
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    font-family: serif;
-    font-size: 90px;
+  padding-top: 150px;
+  position: relative;
+  text-align: center;
+  z-index: 2;
+  font-family: serif;
+  font-size: 90px;
 } 
 
 .second_line {
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    font-family: serif;
-    font-size: 35px;
+  position: relative;
+  text-align: center;
+  z-index: 2;
+  font-family: serif;
+  font-size: 35px;
 }
 
-.divider{
+.divider {
   display: block;
   margin: 0 auto;
   z-index: 2;
 }
 
-.background{
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: no-repeat center center;
-    background-size: 100% auto;
+.background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: no-repeat center center;
+  background-size: 100% auto;
 }
 
-.flags{
+.flags {
   display: inline-block;
-    margin-left: auto;
-    margin-right: auto;    
-    height: 30px; 
-    z-index: 2;
+  margin-left: auto;
+  margin-right: auto;    
+  height: 30px; 
+  z-index: 2;
 }
 
-#row_images{
+#row_images {
   text-align: center;
 }
 
 .third_line {
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    font-family: serif;
-    font-size: 20px;
+  position: relative;
+  text-align: center;
+  z-index: 2;
+  font-family: serif;
+  font-size: 20px;
 }
 
-#front_button{
+#front_button {
   position: relative;
   z-index: 2;
   left: 50%;
@@ -204,41 +194,41 @@ td:hover::after {
   border: 0.5px ridge grey;
 }
 
-#front_button:hover{
+#front_button:hover {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
-#github_icon{
+#github_icon {
   color: black;
 }
 
-#github_icon:hover{
+#github_icon:hover {
   color:#999999 ;
 }
 
-.fa-heart{
+.fa-heart {
   color: red;
 }
 
-#ribbon-about{
+#ribbon-about {
   width: 100%;
 }
 
-.nav-pills [data-value="Author"]{
+.nav-pills[data-value="Author"]{
   border: 0.5px solid #f2f2f2;
   z-index: 100;
 }
 
-.nav-pills [data-value="Data/Charts"]{
+.nav-pills[data-value="Data/Charts"]{
   border: 0.5px solid #f2f2f2;
   z-index: 100;
 }
 
-.nav-pills [data-value="Contact"]{
+.nav-pills[data-value="Contact"]{
   border: 0.5px solid #f2f2f2;
   z-index: 100;
 }
 
-#about{
+#about {
   font-size: 20px;
 }
