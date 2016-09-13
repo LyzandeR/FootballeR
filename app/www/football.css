@@ -89,6 +89,7 @@ table tr:nth-child(2){
 }
 */
 
+/*
 table tr:nth-child(n+3):hover {
   background-color: #7cb5ec;
 }
@@ -116,6 +117,11 @@ td:hover::after {
   top: -5000px;
   width: 100%;
   z-index: -1;        
+}
+*/
+
+.table_team_stats {
+  position: relative;
 }
 
 .navbar {

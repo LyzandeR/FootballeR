@@ -85,15 +85,15 @@ shinyUI(
           
           selectInput('season',
                       'Select Season',
-                      choices = rev(paste(1993:2016, shift(1993:2016, type='lead'), 
+                      choices = rev(paste(1993:2017, shift(1993:2017, type='lead'), 
                                           sep = '-'))[-1], 
-                      selected = c('2015-2016')),
+                      selected = c('2016-2017')),
           
           sliderInput('date_range',
                       'Select the Date Range', 
-                      value = c(as.IDate('2015-08-01'), as.IDate('2016-06-30')),
-                      min = as.IDate('2015-08-01'), 
-                      max = as.IDate('2016-06-30')),
+                      value = c(as.IDate('2016-08-01'), as.IDate('2017-06-30')),
+                      min = as.IDate('2016-08-01'), 
+                      max = as.IDate('2017-06-30')),
           
           width = 3
         ),
@@ -106,15 +106,15 @@ shinyUI(
             #tab league table in Application tab
             tabPanel('League Table',
                      br(),
-                     fixedRow(tableOutput('league_table')
+                     fixedRow(
+                      tableHTML_output('league_table', height = '800px')
                      )),
             
             #tab Goals in Application tab
             tabPanel('Goals', 
                      br(),
                      fixedRow(
-                       column(highchartOutput('goals_per_team' , 
-                                              height='450px'), 
+                       column(highchartOutput('goals_per_team'), 
                               width=10),
                        column(br(),
                               br(),

@@ -3,6 +3,7 @@ library(shiny)
 library(data.table)
 library(highcharter)
 library(DT)
+library(tableHTML)
 
 #initital teams
 init_teams <- c("Arsenal",

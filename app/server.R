@@ -40,38 +40,38 @@ shinyServer(function(input, output, session) {
       session, 
       'season', 
       choices = switch(input$country,
-                       Greece      = rev(paste(1994:2016, 
-                                               shift(1994:2016, type = 'lead'),
+                       Greece      = rev(paste(1994:2017, 
+                                               shift(1994:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       England     = rev(paste(1993:2016,
-                                               shift(1993:2016, type = 'lead'),
+                       England     = rev(paste(1993:2017,
+                                               shift(1993:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       Scotland    = rev(paste(1994:2016,
-                                               shift(1994:2016, type = 'lead'),
+                       Scotland    = rev(paste(1994:2017,
+                                               shift(1994:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       Germany     = rev(paste(1993:2016,
-                                               shift(1993:2016, type = 'lead'),
+                       Germany     = rev(paste(1993:2017,
+                                               shift(1993:2017, type = 'lead'),
                                                sep='-'))[-1],
-                       Italy       = rev(paste(1993:2016,
-                                               shift(1993:2016, type = 'lead'),
+                       Italy       = rev(paste(1993:2017,
+                                               shift(1993:2017, type = 'lead'),
                                                sep='-'))[-1],
-                       Spain       = rev(paste(1993:2016,
-                                               shift(1993:2016, type = 'lead'),
+                       Spain       = rev(paste(1993:2017,
+                                               shift(1993:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       France      = rev(paste(1993:2016,
-                                               shift(1993:2016, type = 'lead'),
+                       France      = rev(paste(1993:2017,
+                                               shift(1993:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       Netherlands = rev(paste(1993:2016,
-                                               shift(1993:2016, type = 'lead'),
+                       Netherlands = rev(paste(1993:2017,
+                                               shift(1993:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       Belgium     = rev(paste(1995:2016,
-                                               shift(1995:2016, type = 'lead'),
+                       Belgium     = rev(paste(1995:2017,
+                                               shift(1995:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       Portugal    = rev(paste(1994:2016,
-                                               shift(1994:2016, type = 'lead'),
+                       Portugal    = rev(paste(1994:2017,
+                                               shift(1994:2017, type = 'lead'),
                                                sep = '-'))[-1],
-                       Turkey      = rev(paste(1994:2016,
-                                               shift(1994:2016, type = 'lead'),
+                       Turkey      = rev(paste(1994:2017,
+                                               shift(1994:2017, type = 'lead'),
                                                sep = '-'))[-1]
                 )
     )
@@ -129,7 +129,7 @@ shinyServer(function(input, output, session) {
     #create season code
     season_code <- paste0(substr(input$season, 3, 4), 
                           substr(input$season, 8, 9))
-
+    
     #create url and read csv
     footy_set <- read.csv(paste0('http://www.football-data.co.uk/mmz4281/', 
                                  season_code, 
@@ -178,15 +178,19 @@ shinyServer(function(input, output, session) {
                       'corner_team',
                       choices = sort(unique(c(footy_set[, unique(HomeTeam)],
                                               footy_set[, unique(AwayTeam)]))))
+    
+    #save min and max Date for on-going seasons. In August min and max year are the same
+    min_y <- footy_set[, year(min(Date))]
+    max_y <- min_y + 1
     updateSliderInput(session, 
                       'date_range',
-                      value=c(as.IDate(paste0(footy_set[, year(min(Date))],
+                      value=c(as.IDate(paste0(footy_set[, min_y],
                                               '-08-01')),
-                              as.IDate(paste0(footy_set[, year(max(Date))],
+                              as.IDate(paste0(footy_set[, max_y],
                                               '-06-30'))),
-                      min=as.IDate(paste0(footy_set[, year(min(Date))],
+                      min=as.IDate(paste0(footy_set[, min_y],
                                           '-08-01')),
-                      max=as.IDate(paste0(footy_set[, year(max(Date))],
+                      max=as.IDate(paste0(footy_set[, max_y],
                                           '-06-30')))
    
     footy_set
@@ -226,7 +230,7 @@ shinyServer(function(input, output, session) {
   
   #LEAGUE TABLE TAB-------------------------------------------------------------
   #the following function creates the league table and outputs as an HTMLtable--
-  output$league_table <- renderTable({
+  output$league_table <- render_tableHTML({
     
     footy_tab  <- values$data
 
@@ -312,46 +316,36 @@ shinyServer(function(input, output, session) {
     
     }, silent=TRUE)
     
-    #return
-    team_stats
+    names(team_stats) <- c('Pos', 
+                           'Team', 
+                           'Played', 
+                           'Wins', 
+                           'Draws', 
+                           'Losses',
+                           'For',
+                           'Against',
+                           'Wins',
+                           'Draws',
+                           'Losses',
+                           'For',
+                           'Against',
+                           'Wins',
+                           'Draws',
+                           'Losses',
+                           'For',
+                           'Against',
+                           'Goal Diff',
+                           'Points')
     
-  }, include.rownames = FALSE,
-     include.colnames = FALSE,
-     add.to.row = list(
-       pos = list(0, 0), 
-       command = c("<TR> <TH colspan=3>  </TH> 
-                         <TH colspan=5 style = 'text-align:center'> Home </TH>
-                         <TH colspan=5 style = 'text-align:center'> Away </TH>
-                         <TH colspan=5 style = 'text-align:center'> Total </TH>
-                         <TH colspan=2> </TH>
-                    </TR>" ,
-                paste("<TR>", 
-                      paste(lapply(c('Pos',
-                                     'Team',
-                                     'Played',
-                                     'Wins',
-                                     'Draws',
-                                     'Losses',
-                                     'For',
-                                     'Against',
-                                     'Wins',
-                                     'Draws',
-                                     'Losses',
-                                     'For',
-                                     'Against',
-                                     'Wins',
-                                     'Draws',
-                                     'Losses',
-                                     'For',
-                                     'Against',
-                                     'Goal Diff',
-                                     'Points'), 
-                                   function(x) {
-                                    paste('<TH>', x, '</TH>')
-                                   }),
-                            collapse=''),
-                      "</TR>"))
-                    )
+    #return
+    tableHTML(team_stats, 
+              rownames = FALSE,
+              second_header = list(c(3, 5, 5, 5, 2), c('', 'Home', 'Away', 'Total', '')),
+              widths = c(25, 140, rep(60, 18)),
+              border = 0) 
+     
+    
+    } 
   )
   
   #SHOTS AND GOALS TAB----------------------------------------------------------
