@@ -341,10 +341,18 @@ shinyServer(function(input, output, session) {
     tableHTML(team_stats, 
               rownames = FALSE,
               second_header = list(c(3, 5, 5, 5, 2), c('', 'Home', 'Away', 'Total', '')),
-              widths = c(25, 140, rep(60, 18)),
-              border = 0) 
-     
-    
+              widths = c(25, 140, rep(60, 16), 130, 60),
+              border = 0) %>%
+     add_css_header(css = list('text-align', 'center'), headers = 1:ncol(team_stats)) %>%
+     add_css_column(css = list('text-align', 'center'), column_names = names(team_stats)) %>%
+     add_css_second_header(css = list('text-align', 'center'), second_headers = 1:5) %>%
+     add_css_row(css = list('background-color', '#428bca'), rows = 1:2) %>%
+     add_css_row(css = list('background-color', '#f2f2f2'), 
+                 rows = odd(3:(nrow(team_stats) + 2))) %>%
+     add_css_second_header(css = list(c('font-size', 'height'), c('25px', '40px')), 
+                           second_headers = 1:5) %>%
+     add_css_row(css = list('height', '30px'), rows = 2:(nrow(team_stats) + 2)) %>%
+     add_css_column(css = list('border-right', '1px solid gray'), column_names = c('Played', 'Against')) 
     } 
   )
   
