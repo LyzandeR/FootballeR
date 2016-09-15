@@ -316,43 +316,53 @@ shinyServer(function(input, output, session) {
     
     }, silent=TRUE)
     
-    names(team_stats) <- c('Pos', 
-                           'Team', 
-                           'Played', 
-                           'Wins', 
-                           'Draws', 
-                           'Losses',
-                           'For',
-                           'Against',
-                           'Wins',
-                           'Draws',
-                           'Losses',
-                           'For',
-                           'Against',
-                           'Wins',
-                           'Draws',
-                           'Losses',
-                           'For',
-                           'Against',
-                           'Goal Diff',
-                           'Points')
-    
+    try({names(team_stats) <- c('Pos',
+                                'Team',
+                                'Played',
+                                'Wins',
+                                'Draws',
+                                'Losses',
+                                'For',
+                                'Against',
+                                '2Wins',
+                                '2Draws',
+                                '2Losses',
+                                '2For',
+                                '2Against',
+                                '3Wins',
+                                '3Draws',
+                                '3Losses',
+                                '3For',
+                                '3Against',
+                                'Goal Diff',
+                                'Points')}, silent = TRUE)
+         
     #return
-    tableHTML(team_stats, 
-              rownames = FALSE,
-              second_header = list(c(3, 5, 5, 5, 2), c('', 'Home', 'Away', 'Total', '')),
-              widths = c(25, 140, rep(60, 16), 130, 60),
-              border = 0) %>%
-     add_css_header(css = list('text-align', 'center'), headers = 1:ncol(team_stats)) %>%
-     add_css_column(css = list('text-align', 'center'), column_names = names(team_stats)) %>%
-     add_css_second_header(css = list('text-align', 'center'), second_headers = 1:5) %>%
-     add_css_row(css = list('background-color', '#428bca'), rows = 1:2) %>%
-     add_css_row(css = list('background-color', '#f2f2f2'), 
-                 rows = odd(3:(nrow(team_stats) + 2))) %>%
-     add_css_second_header(css = list(c('font-size', 'height'), c('25px', '40px')), 
-                           second_headers = 1:5) %>%
-     add_css_row(css = list('height', '30px'), rows = 2:(nrow(team_stats) + 2)) %>%
-     add_css_column(css = list('border-right', '1px solid gray'), column_names = c('Played', 'Against')) 
+    try({
+     tableHTML(team_stats, 
+               rownames = FALSE,
+               second_header = list(c(3, 5, 5, 5, 2), c('', 'Home', 'Away', 'Total', '')),
+               widths = c(25, 140, rep(60, 16), 130, 60),
+               border = 0) %>%
+      replace_html('2Wins|3Wins', 'Wins', replace_all = TRUE) %>%
+      replace_html('2Draws|3Draws', 'Draws', replace_all = TRUE) %>%
+      replace_html('2Losses|3Losses', 'Losses', replace_all = TRUE) %>%
+      replace_html('2For|3For', 'For', replace_all = TRUE) %>%
+      replace_html('2Against|3Against', 'Against', replace_all = TRUE) %>%
+      add_css_header(css = list('text-align', 'center'), headers = 1:ncol(team_stats)) %>%
+      add_css_column(css = list('text-align', 'center'), column_names = names(team_stats)) %>%
+      add_css_second_header(css = list('text-align', 'center'), second_headers = 1:5) %>%
+      add_css_row(css = list('background-color', '#428bca'), rows = 1:2) %>%
+      add_css_row(css = list('background-color', '#f2f2f2'), 
+                  rows = odd(3:(nrow(team_stats) + 2))) %>%
+      add_css_second_header(css = list(c('font-size', 'height'), c('25px', '40px')), 
+                            second_headers = 1:5) %>%
+      add_css_row(css = list('height', '30px'), rows = 2:(nrow(team_stats) + 2)) %>%
+      add_css_column(css = list('border-right', '1px solid gray'), 
+                     column_names = c('Played', 'Against')) 
+      
+      
+    }, silent = TRUE)
     } 
   )
   
@@ -388,7 +398,7 @@ shinyServer(function(input, output, session) {
     #account for home, away and all
     if(input$shots_HA == 'Home'){
       goals_final <- footy_home_goals[, `Shots per Goal` := `Total Shots` / Goals]
-    }else if(input$shots_HA == 'Home'){
+    }else if(input$shots_HA == 'Away'){
       goals_final <- footy_away_goals[, `Shots per Goal` := `Total Shots` / Goals]
     }else{
       goals_final <- footy_all_goals[, 
